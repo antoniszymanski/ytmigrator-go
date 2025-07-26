@@ -4,6 +4,7 @@
 package freetube
 
 import (
+	"context"
 	"errors"
 	"net/url"
 	"os"
@@ -16,6 +17,7 @@ import (
 	"github.com/go-json-experiment/json"
 	"github.com/google/uuid"
 	"github.com/kaorimatz/go-opml"
+	"golang.org/x/sync/errgroup"
 )
 
 func (m Migrator) Import(data common.UserData) error {
@@ -81,35 +83,55 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 	}
 
 	output := make([]models.Playlist, 0, len(input))
+	var mu sync.Mutex
+
+	g, ctx := errgroup.WithContext(context.Background())
+	g.SetLimit(30)
+
 	for playlistName, videoIDs := range input {
-		playlist := models.Playlist{
-			PlaylistName:  playlistName,
-			Protected:     false,
-			Description:   "",
-			Videos:        make([]models.Video, 0, len(videoIDs)),
-			ID:            common.Sha256(playlistName),
-			CreatedAt:     0,
-			LastUpdatedAt: 0,
-		}
-		for _, videoID := range videoIDs {
-			result, err := ytsearch.FindVideoByID(videoID)
-			if err == ytsearch.ErrNotFound {
-				continue
-			} else if err != nil {
-				return err
+		g.Go(func() error {
+			playlist := models.Playlist{
+				PlaylistName:  playlistName,
+				Protected:     false,
+				Description:   "",
+				Videos:        make([]models.Video, 0, len(videoIDs)),
+				ID:            common.Sha256(playlistName),
+				CreatedAt:     0,
+				LastUpdatedAt: 0,
 			}
-			playlist.Videos = append(playlist.Videos, models.Video{
-				VideoID:        videoID,
-				Title:          result.Title,
-				Author:         result.Channel.Title,
-				AuthorID:       result.Channel.ID,
-				LengthSeconds:  result.Duration,
-				TimeAdded:      0,
-				PlaylistItemID: uuid.New().String(),
-				Type:           "video",
-			})
-		}
-		output = append(output, playlist)
+
+			for _, videoID := range videoIDs {
+				select {
+				case <-ctx.Done():
+					return context.Canceled
+				default:
+					result, err := ytsearch.FindVideoByID(videoID)
+					if err == ytsearch.ErrNotFound {
+						continue
+					} else if err != nil {
+						return err
+					}
+					playlist.Videos = append(playlist.Videos, models.Video{
+						VideoID:        videoID,
+						Title:          result.Title,
+						Author:         result.Channel.Title,
+						AuthorID:       result.Channel.ID,
+						LengthSeconds:  result.Duration,
+						TimeAdded:      0,
+						PlaylistItemID: uuid.New().String(),
+						Type:           "video",
+					})
+				}
+			}
+
+			mu.Lock()
+			output = append(output, playlist)
+			mu.Unlock()
+			return nil
+		})
+	}
+	if err := g.Wait(); err != nil {
+		return err
 	}
 
 	f, err := os.Create(filepath.Join(m.dir, "playlists.db"))
