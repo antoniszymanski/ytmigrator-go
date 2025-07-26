@@ -8,36 +8,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"unsafe"
-
-	"github.com/raitonoberu/ytsearch"
 )
-
-func ChannelSearch(query string) ([]*ytsearch.ChannelItem, error) {
-	search := ytsearch.ChannelSearch(query)
-	result, err := search.Next()
-	if err != nil {
-		return nil, err
-	}
-	return result.Channels, nil
-}
-
-func PlaylistSearch(query string) ([]*ytsearch.PlaylistItem, error) {
-	search := ytsearch.PlaylistSearch(query)
-	result, err := search.Next()
-	if err != nil {
-		return nil, err
-	}
-	return result.Playlists, nil
-}
-
-func VideoSearch(query string) ([]*ytsearch.VideoItem, error) {
-	search := ytsearch.VideoSearch(query)
-	result, err := search.Next()
-	if err != nil {
-		return nil, err
-	}
-	return result.Videos, nil
-}
 
 func ErrorAs[T error](err error) (T, bool) {
 	var target T

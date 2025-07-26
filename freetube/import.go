@@ -12,6 +12,7 @@ import (
 
 	"github.com/antoniszymanski/ytmigrator-go/common"
 	"github.com/antoniszymanski/ytmigrator-go/freetube/models"
+	"github.com/antoniszymanski/ytmigrator-go/ytsearch"
 	"github.com/go-json-experiment/json"
 	"github.com/google/uuid"
 	"github.com/kaorimatz/go-opml"
@@ -91,14 +92,12 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 			LastUpdatedAt: 0,
 		}
 		for _, videoID := range videoIDs {
-			results, err := common.VideoSearch(videoID)
-			if err != nil {
+			result, err := ytsearch.FindVideoByID(videoID)
+			if err == ytsearch.ErrNotFound {
+				continue
+			} else if err != nil {
 				return err
 			}
-			if len(results) == 0 {
-				continue
-			}
-			result := results[0]
 			playlist.Videos = append(playlist.Videos, models.Video{
 				VideoID:        videoID,
 				Title:          result.Title,
