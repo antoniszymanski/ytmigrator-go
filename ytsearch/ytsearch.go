@@ -7,9 +7,18 @@ import (
 	"github.com/raitonoberu/ytsearch"
 )
 
+const maxPages = 50
+
+var ErrNotFound = errors.New("not found")
+
 func FindChannelByID(id string) (*ytsearch.ChannelItem, error) {
 	search := ytsearch.ChannelSearch(id)
+	remaining := maxPages
 	for search.NextExists() {
+		if remaining <= 0 {
+			break
+		}
+		remaining--
 		result, err := search.Next()
 		if err != nil {
 			return nil, err
@@ -28,7 +37,12 @@ func FindChannelByID(id string) (*ytsearch.ChannelItem, error) {
 
 func FindPlaylistByID(id string) (*ytsearch.PlaylistItem, error) {
 	search := ytsearch.PlaylistSearch(id)
+	remaining := maxPages
 	for search.NextExists() {
+		if remaining <= 0 {
+			break
+		}
+		remaining--
 		result, err := search.Next()
 		if err != nil {
 			return nil, err
@@ -47,7 +61,12 @@ func FindPlaylistByID(id string) (*ytsearch.PlaylistItem, error) {
 
 func FindVideoByID(id string) (*ytsearch.VideoItem, error) {
 	search := ytsearch.VideoSearch(id)
+	remaining := maxPages
 	for search.NextExists() {
+		if remaining <= 0 {
+			break
+		}
+		remaining--
 		result, err := search.Next()
 		if err != nil {
 			return nil, err
@@ -63,5 +82,3 @@ func FindVideoByID(id string) (*ytsearch.VideoItem, error) {
 	}
 	return nil, ErrNotFound
 }
-
-var ErrNotFound = errors.New("not found")
