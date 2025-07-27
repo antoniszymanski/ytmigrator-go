@@ -3,8 +3,6 @@
 
 package models
 
-type Playlists []Playlist
-
 type Playlist struct {
 	PlaylistName  string  `json:"playlistName"`
 	Protected     bool    `json:"protected"`
