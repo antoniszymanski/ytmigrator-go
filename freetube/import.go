@@ -103,7 +103,7 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 			for _, videoID := range videoIDs {
 				select {
 				case <-ctx.Done():
-					return context.Canceled
+					return ctx.Err()
 				default:
 					result, err := ytsearch.FindVideoByID(videoID)
 					if err == ytsearch.ErrNotFound {
