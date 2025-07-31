@@ -4,7 +4,7 @@ go 1.24.5
 
 require (
 	github.com/alecthomas/kong v1.12.1
-	github.com/antoniszymanski/invidious-go v0.1.1
+	github.com/antoniszymanski/invidious-go v0.1.2
 	github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa
 	github.com/dsnet/try v0.0.3
 	github.com/go-json-experiment/json v0.0.0-20250725192818-e39067aee2d2
@@ -20,7 +20,7 @@ require (
 	cloud.google.com/go/auth v0.16.3 // indirect
 	cloud.google.com/go/auth/oauth2adapt v0.2.8 // indirect
 	cloud.google.com/go/compute/metadata v0.7.0 // indirect
-	github.com/antoniszymanski/option-go v0.1.2 // indirect
+	github.com/antoniszymanski/option-go v0.1.3 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
