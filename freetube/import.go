@@ -11,9 +11,9 @@ import (
 	"path/filepath"
 	"sync"
 
+	"github.com/antoniszymanski/innertube-go"
 	"github.com/antoniszymanski/ytmigrator-go/common"
 	"github.com/antoniszymanski/ytmigrator-go/freetube/models"
-	"github.com/antoniszymanski/ytmigrator-go/ytsearch"
 	"github.com/go-json-experiment/json"
 	"github.com/google/uuid"
 	"github.com/kaorimatz/go-opml"
@@ -105,18 +105,17 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 				case <-ctx.Done():
 					return ctx.Err()
 				default:
-					result, err := ytsearch.FindVideoByID(videoID)
-					if err == ytsearch.ErrNotFound {
-						continue
-					} else if err != nil {
+					var c innertube.Client
+					v, err := c.GetVideo(videoID)
+					if err != nil {
 						return err
 					}
 					playlist.Videos = append(playlist.Videos, models.Video{
-						VideoID:        videoID,
-						Title:          result.Title,
-						Author:         result.Channel.Title,
-						AuthorID:       result.Channel.ID,
-						LengthSeconds:  result.Duration,
+						VideoID:        v.ID,
+						Title:          v.Title,
+						Author:         v.Author,
+						AuthorID:       v.AuthorID,
+						LengthSeconds:  int(v.LengthSeconds),
 						TimeAdded:      0,
 						PlaylistItemID: uuid.New().String(),
 						Type:           "video",
