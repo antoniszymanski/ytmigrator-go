@@ -13,7 +13,7 @@ require (
 	github.com/kaorimatz/go-opml v0.0.0-20210201121027-bc8e2852d7f9
 	golang.org/x/oauth2 v0.30.0
 	golang.org/x/sync v0.16.0
-	google.golang.org/api v0.244.0
+	google.golang.org/api v0.245.0
 )
 
 require (
