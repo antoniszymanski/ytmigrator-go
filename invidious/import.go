@@ -48,7 +48,7 @@ func (m *Migrator) importSubscriptions(input common.Subscriptions) error {
 		if err = browser.OpenURL(url); err != nil {
 			return err
 		}
-		fmt.Scanln() //nolint:errcheck
+		common.AwaitEnter() //nolint:errcheck
 	} else if err != nil {
 		return err
 	} else {
