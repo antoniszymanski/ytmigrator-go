@@ -8,22 +8,30 @@ import (
 	"github.com/antoniszymanski/ytmigrator-go/youtube"
 )
 
-type cmd_yt2ft struct {
-	youtubeConfig  `prefix:"yt-"`
-	freetubeConfig `prefix:"ft-"`
+type Cmd_yt2ft struct {
+	YoutubeOptions
+	FreetubeOptions
 }
 
-func (c *cmd_yt2ft) Run() error {
+func (c *Cmd_yt2ft) Run() int {
 	ytClient, err := youtube.NewService(c.Credentials, c.Token)
 	if err != nil {
-		return err
+		logger.Err(err).Msg("failed to create YouTube service")
+		return 1
 	}
 	src := youtube.NewMigrator(ytClient)
 	dst := freetube.NewMigrator(c.Dir)
 
-	data, err := src.Export(cli.ExportOptions)
+	data, err := src.Export(args.ExportOptions)
 	if err != nil {
-		return err
+		logger.Err(err).Msg("failed to export data from YouTube")
+		return 1
 	}
-	return dst.Import(data)
+
+	if err = dst.Import(data); err != nil {
+		logger.Err(err).Msg("failed to import data to FreeTube")
+		return 1
+	}
+
+	return 0
 }

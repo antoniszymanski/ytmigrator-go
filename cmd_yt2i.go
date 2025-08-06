@@ -12,15 +12,16 @@ import (
 	"github.com/antoniszymanski/ytmigrator-go/youtube"
 )
 
-type cmd_yt2i struct {
-	youtubeConfig   `prefix:"yt-"`
-	invidiousConfig `prefix:"i-"`
+type Cmd_yt2i struct {
+	YoutubeOptions
+	InvidiousConfig
 }
 
-func (c *cmd_yt2i) Run() error {
+func (c *Cmd_yt2i) Run() int {
 	ytClient, err := youtube.NewService(c.Credentials, c.Token)
 	if err != nil {
-		return err
+		logger.Err(err).Msg("failed to create YouTube service")
+		return 1
 	}
 	src := youtube.NewMigrator(ytClient)
 
@@ -30,22 +31,32 @@ func (c *cmd_yt2i) Run() error {
 		Expire: time.Now().Add(10 * time.Minute),
 	})
 	if err != nil {
-		return err
+		logger.Err(err).Msg("failed to authorize Invidious token")
+		return 1
 	}
 
 	takeoutFile, err := os.OpenFile(c.Takeout, os.O_RDWR, 0600)
 	if err != nil {
-		return err
+		logger.Err(err).Msg("failed to open takeout file")
+		return 1
 	}
 	dst, err := invidious.NewMigrator(takeoutFile, iClient)
 	if err != nil {
-		return err
+		logger.Err(err).Msg("failed to create Invidious migrator")
+		return 1
 	}
 	defer dst.Close() //nolint:errcheck
 
-	data, err := src.Export(cli.ExportOptions)
+	data, err := src.Export(args.ExportOptions)
 	if err != nil {
-		return err
+		logger.Err(err).Msg("failed to export data from YouTube")
+		return 1
 	}
-	return dst.Import(data)
+
+	if err = dst.Import(data); err != nil {
+		logger.Err(err).Msg("failed to import data to Invidious")
+		return 1
+	}
+
+	return 0
 }

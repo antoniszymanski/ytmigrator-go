@@ -9,8 +9,8 @@ type Migrator interface {
 }
 
 type ExportOptions struct {
-	SkipSubscriptions bool `short:"S"`
-	SkipPlaylists     bool `short:"P"`
+	SkipSubscriptions bool `arg:"--skip-subscriptions"`
+	SkipPlaylists     bool `arg:"--skip-playlists"`
 }
 
 type UserData struct {

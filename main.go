@@ -4,34 +4,72 @@
 package main
 
 import (
-	"github.com/alecthomas/kong"
+	"os"
+
+	"github.com/alexflint/go-arg"
 	"github.com/antoniszymanski/ytmigrator-go/common"
+	"github.com/rs/zerolog"
 )
 
-var cli struct {
-	Cmd_yt2i  *cmd_yt2i  `cmd:"" name:"yt2i"`
-	Cmd_yt2ft *cmd_yt2ft `cmd:"" name:"yt2ft"`
+var args struct {
+	*Cmd_yt2i  `arg:"subcommand:yt2i"`
+	*Cmd_yt2ft `arg:"subcommand:yt2ft"`
 	common.ExportOptions
 }
 
-type youtubeConfig struct {
-	Credentials string `type:"existingfile" default:"credentials.json"`
-	Token       string `type:"path" default:"token.json"`
+type YoutubeOptions struct {
+	Credentials string `arg:"--youtube.credentials" default:"credentials.json"`
+	Token       string `arg:"--youtube.token" default:"token.json"`
 }
 
-type invidiousConfig struct {
-	Takeout     string `type:"existingfile" default:"subscription_manager.json"`
-	InstanceURL string `required:""`
+type InvidiousConfig struct {
+	Takeout     string `arg:"--invidious.takeout" default:"subscription_manager.json"`
+	InstanceURL string `arg:"--invidious.instanceurl,required"`
 }
 
-type freetubeConfig struct {
-	Dir string `type:"path" default:"freetube"`
+type FreetubeOptions struct {
+	Dir string `arg:"--freetube.dir" default:"freetube"`
 }
+
+var logger = zerolog.New(zerolog.ConsoleWriter{
+	Out:        os.Stderr,
+	TimeFormat: "2006/01/02 15:04:05",
+}).With().Timestamp().Logger()
 
 func main() {
-	ctx := kong.Parse(&cli,
-		kong.Name("ytmigrator"),
-		kong.UsageOnError(),
-	)
-	ctx.FatalIfErrorf(ctx.Run())
+	cfg := arg.Config{
+		Program: "ytmigrator-go",
+		Out:     os.Stderr,
+	}
+	p, err := arg.NewParser(cfg, &args)
+	if err != nil {
+		panic(err)
+	}
+
+	var flags []string
+	if len(os.Args) > 0 {
+		flags = os.Args[1:]
+	}
+	err = p.Parse(flags)
+
+	var code int
+	//nolint:errcheck
+	switch {
+	case err == arg.ErrHelp:
+		p.WriteHelpForSubcommand(cfg.Out, p.SubcommandNames()...)
+	case err != nil:
+		p.WriteHelpForSubcommand(cfg.Out, p.SubcommandNames()...)
+		os.Stderr.WriteString("error:")
+		os.Stderr.WriteString(err.Error())
+		os.Stderr.WriteString("\n")
+		code = 2
+	default: //nolint:staticcheck,gocritic
+		p.WriteHelp(cfg.Out)
+		code = 2
+	case args.Cmd_yt2i != nil:
+		code = args.Cmd_yt2i.Run()
+	case args.Cmd_yt2ft != nil:
+		code = args.Cmd_yt2ft.Run()
+	}
+	os.Exit(code)
 }
