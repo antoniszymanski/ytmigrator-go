@@ -4,7 +4,7 @@ go 1.24.5
 
 require (
 	github.com/alecthomas/kong v1.12.1
-	github.com/antoniszymanski/innertube-go v0.1.1
+	github.com/antoniszymanski/innertube-go v0.1.2
 	github.com/antoniszymanski/invidious-go v0.1.2
 	github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa
 	github.com/dsnet/try v0.0.3
@@ -27,6 +27,8 @@ require (
 	github.com/google/s2a-go v0.1.9 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.6 // indirect
 	github.com/googleapis/gax-go/v2 v2.15.0 // indirect
+	github.com/josharian/intern v1.0.0 // indirect
+	github.com/mailru/easyjson v0.9.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.61.0 // indirect
 	go.opentelemetry.io/otel v1.36.0 // indirect

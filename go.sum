@@ -10,8 +10,8 @@ github.com/alecthomas/kong v1.12.1 h1:iq6aMJDcFYP9uFrLdsiZQ2ZMmcshduyGv4Pek0MQPW
 github.com/alecthomas/kong v1.12.1/go.mod h1:p2vqieVMeTAnaC83txKtXe8FLke2X07aruPWXyMPQrU=
 github.com/alecthomas/repr v0.4.0 h1:GhI2A8MACjfegCPVq9f1FLvIBS+DrQ2KQBFZP1iFzXc=
 github.com/alecthomas/repr v0.4.0/go.mod h1:Fr0507jx4eOXV7AlPV6AVZLYrLIuIeSOWtW57eE/O/4=
-github.com/antoniszymanski/innertube-go v0.1.1 h1:wjwLKnMQZkCP19j2lGmBvqo6EI901Qa6RtGHAPVeoLg=
-github.com/antoniszymanski/innertube-go v0.1.1/go.mod h1:WvLcIjwaj6lXy+aQSzrfmSzkEK05C49tqcI91SsMOhI=
+github.com/antoniszymanski/innertube-go v0.1.2 h1:xU9PUp5M1yyP1CjoaxD2S9L04MOpAZmA7Nk84e0uQy0=
+github.com/antoniszymanski/innertube-go v0.1.2/go.mod h1:f4O5W7sSLHapkaBzHNxAhHLQW7uo+cMy07i26/JDsWw=
 github.com/antoniszymanski/invidious-go v0.1.2 h1:+qFTGMvQTTXvLsLAHgPpjVodQDY5N2tjwT3tNb1C76M=
 github.com/antoniszymanski/invidious-go v0.1.2/go.mod h1:909CE5jQ4Jqc6JPK56SYVSM2lC9QdHsePZfcWKsJv54=
 github.com/antoniszymanski/option-go v0.1.3 h1:iVxGXFDciIyl2pjbK8ImEqjwaiP/VsS29MmTXHWcOOc=
@@ -45,8 +45,12 @@ github.com/googleapis/gax-go/v2 v2.15.0 h1:SyjDc1mGgZU5LncH8gimWo9lW1DtIfPibOG81
 github.com/googleapis/gax-go/v2 v2.15.0/go.mod h1:zVVkkxAQHa1RQpg9z2AUCMnKhi0Qld9rcmyfL1OZhoc=
 github.com/hexops/gotextdiff v1.0.3 h1:gitA9+qJrrTCsiCl7+kh75nPqQt1cx4ZkudSTLoUqJM=
 github.com/hexops/gotextdiff v1.0.3/go.mod h1:pSWU5MAI3yDq+fZBTazCSJysOMbxWL1BSow5/V2vxeg=
+github.com/josharian/intern v1.0.0 h1:vlS4z54oSdjm0bgjRigI+G1HpF+tI+9rE5LLzOg8HmY=
+github.com/josharian/intern v1.0.0/go.mod h1:5DoeVV0s6jJacbCEi61lwdGj/aVlrQvzHFFd8Hwg//Y=
 github.com/kaorimatz/go-opml v0.0.0-20210201121027-bc8e2852d7f9 h1:+9REu9CK9D1AQ6C/PXXwGRcoKdT04cuHR5JgGD4DKqc=
 github.com/kaorimatz/go-opml v0.0.0-20210201121027-bc8e2852d7f9/go.mod h1:OvY5ZBrAC9kOvM2PZs9Lw0BH+5K7tjrT6T7SFhn27OA=
+github.com/mailru/easyjson v0.9.0 h1:PrnmzHw7262yW8sTBwxi1PdJA3Iw/EKBa8psRf7d9a4=
+github.com/mailru/easyjson v0.9.0/go.mod h1:1+xMtQp2MRNVL/V1bOzuP3aP8VNwRW55fQUto+XFtTU=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/testify v1.10.0 h1:Xv5erBjTwe/5IxqUQTdXv5kgmIvbHo3QQyRwhJsOfJA=
