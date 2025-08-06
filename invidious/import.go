@@ -44,7 +44,7 @@ func (m *Migrator) importSubscriptions(input common.Subscriptions) error {
 	if e, ok := common.ErrorAs[invidious.Error](err); ok &&
 		e.StatusCode == 403 && e.Message == "Endpoint disabled" {
 		url := m.client.InstanceURL + "/subscription_manager"
-		fmt.Printf(subscriptionsEndpointDisabledMsg, url)
+		fmt.Printf(msg, url)
 		if err = browser.OpenURL(url); err != nil {
 			return err
 		}
@@ -67,7 +67,7 @@ func (m *Migrator) importSubscriptions(input common.Subscriptions) error {
 	return nil
 }
 
-const subscriptionsEndpointDisabledMsg = `Your selected Invidious instance has disabled "/api/v1/auth/subscriptions" endpoint. You will be redirected to "%s". When you remove all your subscriptions, press Enter.\n`
+const msg = `Your selected Invidious instance has disabled "/api/v1/auth/subscriptions" endpoint. You will be redirected to %q. When you remove all your subscriptions, press Enter.\n`
 
 func (m *Migrator) importPlaylists(input common.Playlists) error {
 	if input == nil {
