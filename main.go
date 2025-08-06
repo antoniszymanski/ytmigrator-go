@@ -4,7 +4,12 @@
 package main
 
 import (
+	"encoding"
+	"errors"
+	"io"
 	"os"
+	"slices"
+	"strconv"
 
 	"github.com/alexflint/go-arg"
 	"github.com/antoniszymanski/ytmigrator-go/common"
@@ -12,10 +17,50 @@ import (
 )
 
 var args struct {
+	LoggingOptions
 	*Cmd_version `arg:"subcommand:version" help:"display version and exit"`
 	*Cmd_yt2i    `arg:"subcommand:yt2i"`
 	*Cmd_yt2ft   `arg:"subcommand:yt2ft"`
-	common.ExportOptions
+}
+
+type LoggingOptions struct {
+	Level LevelOption `arg:"--logging.level" default:"info"`
+	Type  TypeOption  `arg:"--logging.type" default:"console"`
+}
+
+type LevelOption string
+
+var _ encoding.TextUnmarshaler = (*LevelOption)(nil)
+
+func (opt *LevelOption) UnmarshalText(text []byte) error {
+	*opt = LevelOption(text)
+	return validateOneOf(string(text), "debug", "info", "warn", "error")
+}
+
+type TypeOption string
+
+var _ encoding.TextUnmarshaler = (*TypeOption)(nil)
+
+func (opt *TypeOption) UnmarshalText(text []byte) error {
+	*opt = TypeOption(text)
+	return validateOneOf(string(text), "json", "console")
+}
+
+func validateOneOf(got string, members ...string) error {
+	if slices.Contains(members, got) {
+		return nil
+	}
+	var dst []byte
+	dst = append(dst, "must be one of "...)
+	for i, member := range members {
+		dst = strconv.AppendQuote(dst, member)
+		if i < len(members)-1 {
+			dst = append(dst, ',')
+		}
+	}
+	dst = append(dst, " but got "...)
+	dst = strconv.AppendQuote(dst, got)
+	return errors.New(common.Bytes2string(dst))
 }
 
 type YoutubeOptions struct {
@@ -23,7 +68,7 @@ type YoutubeOptions struct {
 	Token       string `arg:"--youtube.token" default:"token.json"`
 }
 
-type InvidiousConfig struct {
+type InvidiousOptions struct {
 	Takeout     string `arg:"--invidious.takeout" default:"subscription_manager.json"`
 	InstanceURL string `arg:"--invidious.instanceurl,required"`
 }
@@ -32,10 +77,7 @@ type FreetubeOptions struct {
 	Dir string `arg:"--freetube.dir" default:"freetube"`
 }
 
-var logger = zerolog.New(zerolog.ConsoleWriter{
-	Out:        os.Stderr,
-	TimeFormat: "2006/01/02 15:04:05",
-}).With().Timestamp().Logger()
+var logger zerolog.Logger
 
 func main() {
 	cfg := arg.Config{
@@ -53,6 +95,31 @@ func main() {
 	}
 	err = p.Parse(flags)
 
+	if err == nil {
+		var w io.Writer
+		switch args.Type {
+		case "json":
+			w = os.Stderr
+		case "console":
+			w = zerolog.ConsoleWriter{
+				Out:         os.Stderr,
+				TimeFormat:  "2006/01/02 15:04:05",
+				FieldsOrder: []string{"error"},
+			}
+		}
+		logger = zerolog.New(w).With().Timestamp().Logger()
+		switch args.Level {
+		case "debug":
+			logger = logger.Level(zerolog.DebugLevel)
+		case "info":
+			logger = logger.Level(zerolog.InfoLevel)
+		case "warn":
+			logger = logger.Level(zerolog.WarnLevel)
+		case "error":
+			logger = logger.Level(zerolog.ErrorLevel)
+		}
+	}
+
 	var code int
 	//nolint:errcheck
 	switch {
@@ -60,7 +127,6 @@ func main() {
 		p.WriteHelpForSubcommand(cfg.Out, p.SubcommandNames()...)
 	case err != nil:
 		p.WriteHelpForSubcommand(cfg.Out, p.SubcommandNames()...)
-		os.Stderr.WriteString("error:")
 		os.Stderr.WriteString(err.Error())
 		os.Stderr.WriteString("\n")
 		code = 2

@@ -4,6 +4,7 @@
 package main
 
 import (
+	"github.com/antoniszymanski/ytmigrator-go/common"
 	"github.com/antoniszymanski/ytmigrator-go/freetube"
 	"github.com/antoniszymanski/ytmigrator-go/youtube"
 )
@@ -11,6 +12,7 @@ import (
 type Cmd_yt2ft struct {
 	YoutubeOptions
 	FreetubeOptions
+	common.ExportOptions
 }
 
 func (c *Cmd_yt2ft) Run() int {
@@ -22,7 +24,7 @@ func (c *Cmd_yt2ft) Run() int {
 	src := youtube.NewMigrator(ytClient)
 	dst := freetube.NewMigrator(c.Dir)
 
-	data, err := src.Export(args.ExportOptions)
+	data, err := src.Export(c.ExportOptions)
 	if err != nil {
 		logger.Err(err).Msg("failed to export data from YouTube")
 		return 1

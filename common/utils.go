@@ -27,13 +27,13 @@ func Sha256(s string) string {
 	src := sha256.Sum256(string2bytes(s))
 	dst := make([]byte, hex.EncodedLen(len(src)))
 	hex.Encode(dst, src[:])
-	return bytes2string(dst)
+	return Bytes2string(dst)
 }
 
 func string2bytes(s string) []byte {
 	return unsafe.Slice(unsafe.StringData(s), len(s))
 }
 
-func bytes2string(b []byte) string {
+func Bytes2string(b []byte) string {
 	return unsafe.String(unsafe.SliceData(b), len(b))
 }

@@ -8,13 +8,15 @@ import (
 	"time"
 
 	invidiousapi "github.com/antoniszymanski/invidious-go"
+	"github.com/antoniszymanski/ytmigrator-go/common"
 	"github.com/antoniszymanski/ytmigrator-go/invidious"
 	"github.com/antoniszymanski/ytmigrator-go/youtube"
 )
 
 type Cmd_yt2i struct {
 	YoutubeOptions
-	InvidiousConfig
+	InvidiousOptions
+	common.ExportOptions
 }
 
 func (c *Cmd_yt2i) Run() int {
@@ -47,7 +49,7 @@ func (c *Cmd_yt2i) Run() int {
 	}
 	defer dst.Close() //nolint:errcheck
 
-	data, err := src.Export(args.ExportOptions)
+	data, err := src.Export(c.ExportOptions)
 	if err != nil {
 		logger.Err(err).Msg("failed to export data from YouTube")
 		return 1
