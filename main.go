@@ -12,8 +12,9 @@ import (
 )
 
 var args struct {
-	*Cmd_yt2i  `arg:"subcommand:yt2i"`
-	*Cmd_yt2ft `arg:"subcommand:yt2ft"`
+	*Cmd_version `arg:"subcommand:version" help:"display version and exit"`
+	*Cmd_yt2i    `arg:"subcommand:yt2i"`
+	*Cmd_yt2ft   `arg:"subcommand:yt2ft"`
 	common.ExportOptions
 }
 
@@ -66,6 +67,8 @@ func main() {
 	default: //nolint:staticcheck,gocritic
 		p.WriteHelp(cfg.Out)
 		code = 2
+	case args.Cmd_version != nil:
+		code = args.Cmd_version.Run()
 	case args.Cmd_yt2i != nil:
 		code = args.Cmd_yt2i.Run()
 	case args.Cmd_yt2ft != nil:
