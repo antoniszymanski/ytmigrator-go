@@ -7,9 +7,8 @@ import "github.com/go-json-experiment/json/jsontext"
 
 type Takeout struct {
 	Subscriptions []string       `json:"subscriptions"`
-	WatchHistory  jsontext.Value `json:"watch_history"`
-	Preferences   jsontext.Value `json:"preferences"`
 	Playlists     []Playlist     `json:"playlists"`
+	Unknown       jsontext.Value `json:",unknown"`
 }
 
 type Playlist struct {
