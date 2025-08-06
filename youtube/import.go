@@ -5,6 +5,6 @@ package youtube
 
 import "github.com/antoniszymanski/ytmigrator-go/common"
 
-func (m Migrator) Import(common.UserData) error {
+func (m *Migrator) Import(common.UserData) error {
 	panic("unimplemented")
 }

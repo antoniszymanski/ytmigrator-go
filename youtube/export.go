@@ -12,7 +12,7 @@ import (
 	"google.golang.org/api/youtube/v3"
 )
 
-func (m Migrator) Export(opts common.ExportOptions) (common.UserData, error) {
+func (m *Migrator) Export(opts common.ExportOptions) (common.UserData, error) {
 	var data common.UserData
 	var wg sync.WaitGroup
 	errs := make([]error, 2)
@@ -34,7 +34,7 @@ func (m Migrator) Export(opts common.ExportOptions) (common.UserData, error) {
 	return data, errors.Join(errs...)
 }
 
-func (m Migrator) exportSubscriptions() (common.Subscriptions, error) {
+func (m *Migrator) exportSubscriptions() (common.Subscriptions, error) {
 	subscriptions, err := m.listSubscriptions()
 	if err != nil {
 		return nil, err
@@ -50,7 +50,7 @@ func (m Migrator) exportSubscriptions() (common.Subscriptions, error) {
 	return output, nil
 }
 
-func (m Migrator) listSubscriptions() ([]*youtube.Subscription, error) {
+func (m *Migrator) listSubscriptions() ([]*youtube.Subscription, error) {
 	var items []*youtube.Subscription
 	f := func(resp *youtube.SubscriptionListResponse) error {
 		items = append(items, resp.Items...)
@@ -68,7 +68,7 @@ func (m Migrator) listSubscriptions() ([]*youtube.Subscription, error) {
 	return items, nil
 }
 
-func (m Migrator) exportPlaylists() (common.Playlists, error) {
+func (m *Migrator) exportPlaylists() (common.Playlists, error) {
 	playlists, err := m.listPlaylists()
 	if err != nil {
 		return nil, err
@@ -91,7 +91,7 @@ func (m Migrator) exportPlaylists() (common.Playlists, error) {
 	return output, nil
 }
 
-func (m Migrator) listPlaylists() ([]*youtube.Playlist, error) {
+func (m *Migrator) listPlaylists() ([]*youtube.Playlist, error) {
 	var items []*youtube.Playlist
 	f := func(resp *youtube.PlaylistListResponse) error {
 		items = append(items, resp.Items...)
@@ -109,7 +109,7 @@ func (m Migrator) listPlaylists() ([]*youtube.Playlist, error) {
 	return items, nil
 }
 
-func (m Migrator) listPlaylistItems(playlistId string) ([]*youtube.PlaylistItem, error) {
+func (m *Migrator) listPlaylistItems(playlistId string) ([]*youtube.PlaylistItem, error) {
 	var items []*youtube.PlaylistItem
 	f := func(resp *youtube.PlaylistItemListResponse) error {
 		items = append(items, resp.Items...)

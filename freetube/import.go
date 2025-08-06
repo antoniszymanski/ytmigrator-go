@@ -20,7 +20,7 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-func (m Migrator) Import(data common.UserData) error {
+func (m *Migrator) Import(data common.UserData) error {
 	var wg sync.WaitGroup
 	errs := make([]error, 2)
 
@@ -40,8 +40,9 @@ func (m Migrator) Import(data common.UserData) error {
 	return errors.Join(errs...)
 }
 
-func (m Migrator) importSubscriptions(input common.Subscriptions) error {
+func (m *Migrator) importSubscriptions(input common.Subscriptions) error {
 	if input == nil {
+		m.logger.Info().Msg("importing subscriptions has been omitted")
 		return nil
 	}
 
@@ -79,6 +80,7 @@ func (m Migrator) importSubscriptions(input common.Subscriptions) error {
 
 func (m *Migrator) importPlaylists(input common.Playlists) error {
 	if input == nil {
+		m.logger.Info().Msg("importing playlists has been omitted")
 		return nil
 	}
 
@@ -108,7 +110,11 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 					var c innertube.Client
 					v, err := c.GetVideo(videoID)
 					if err != nil {
-						return err
+						m.logger.Warn().Err(err).
+							Str("playlistName", playlistName).
+							Str("videoID", videoID).
+							Msg("failed to add video to the playlist")
+						continue
 					}
 					playlist.Videos = append(playlist.Videos, models.Video{
 						VideoID:        v.ID,
@@ -120,6 +126,10 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 						PlaylistItemID: uuid.New().String(),
 						Type:           "video",
 					})
+					m.logger.Debug().
+						Str("playlistName", playlistName).
+						Str("videoID", videoID).
+						Msg("added video to the playlist")
 				}
 			}
 

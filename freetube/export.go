@@ -5,6 +5,6 @@ package freetube
 
 import "github.com/antoniszymanski/ytmigrator-go/common"
 
-func (s Migrator) Export(opts common.ExportOptions) (data common.UserData, err error) {
+func (m *Migrator) Export(opts common.ExportOptions) (data common.UserData, err error) {
 	panic("unimplemented")
 }

@@ -20,19 +20,22 @@ type Cmd_yt2i struct {
 }
 
 func (c *Cmd_yt2i) Run() int {
-	ytClient, err := youtube.NewService(c.Credentials, c.Token)
+	yt_client, err := youtube.NewService(c.Credentials, c.Token)
 	if err != nil {
-		logger.Err(err).Msg("failed to create YouTube service")
+		logger.Err(err).Msg("failed to create YouTube client")
 		return 1
 	}
-	src := youtube.NewMigrator(ytClient)
 
-	iClient := invidiousapi.NewClient(c.InstanceURL)
-	err = iClient.AuthorizeToken(invidiousapi.AuthorizeTokenRequest{
-		Scopes: []string{":subscriptions*", ":playlist*"},
-		Expire: time.Now().Add(10 * time.Minute),
-	})
-	if err != nil {
+	src := youtube.NewMigrator(yt_client)
+	src.SetLogger(&logger)
+
+	i_client := invidiousapi.NewClient(c.InstanceURL)
+	if err = i_client.AuthorizeToken(
+		invidiousapi.AuthorizeTokenRequest{
+			Scopes: []string{":subscriptions*", ":playlist*"},
+			Expire: time.Now().Add(10 * time.Minute),
+		},
+	); err != nil {
 		logger.Err(err).Msg("failed to authorize Invidious token")
 		return 1
 	}
@@ -42,12 +45,14 @@ func (c *Cmd_yt2i) Run() int {
 		logger.Err(err).Msg("failed to open takeout file")
 		return 1
 	}
-	dst, err := invidious.NewMigrator(takeoutFile, iClient)
+
+	dst, err := invidious.NewMigrator(takeoutFile, i_client)
 	if err != nil {
 		logger.Err(err).Msg("failed to create Invidious migrator")
 		return 1
 	}
 	defer dst.Close() //nolint:errcheck
+	dst.SetLogger(&logger)
 
 	data, err := src.Export(c.ExportOptions)
 	if err != nil {

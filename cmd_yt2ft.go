@@ -16,13 +16,17 @@ type Cmd_yt2ft struct {
 }
 
 func (c *Cmd_yt2ft) Run() int {
-	ytClient, err := youtube.NewService(c.Credentials, c.Token)
+	yt_client, err := youtube.NewService(c.Credentials, c.Token)
 	if err != nil {
-		logger.Err(err).Msg("failed to create YouTube service")
+		logger.Err(err).Msg("failed to create YouTube client")
 		return 1
 	}
-	src := youtube.NewMigrator(ytClient)
+
+	src := youtube.NewMigrator(yt_client)
+	src.SetLogger(&logger)
+
 	dst := freetube.NewMigrator(c.Dir)
+	dst.SetLogger(&logger)
 
 	data, err := src.Export(c.ExportOptions)
 	if err != nil {

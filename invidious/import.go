@@ -36,6 +36,7 @@ func (m *Migrator) Import(data common.UserData) error {
 
 func (m *Migrator) importSubscriptions(input common.Subscriptions) error {
 	if input == nil {
+		m.logger.Info().Msg("importing subscriptions has been omitted")
 		return nil
 	}
 
@@ -66,10 +67,11 @@ func (m *Migrator) importSubscriptions(input common.Subscriptions) error {
 	return nil
 }
 
-const subscriptionsEndpointDisabledMsg = "Your selected Invidious instance has disabled `/api/v1/auth/subscriptions` endpoint. You will be redirected to `%s`. When you remove all your subscriptions, press Enter.\n"
+const subscriptionsEndpointDisabledMsg = `Your selected Invidious instance has disabled "/api/v1/auth/subscriptions" endpoint. You will be redirected to "%s". When you remove all your subscriptions, press Enter.\n`
 
 func (m *Migrator) importPlaylists(input common.Playlists) error {
 	if input == nil {
+		m.logger.Info().Msg("importing playlists has been omitted")
 		return nil
 	}
 
