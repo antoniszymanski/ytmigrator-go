@@ -8,6 +8,7 @@ require (
 	github.com/antoniszymanski/invidious-go v0.1.2
 	github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa
 	github.com/dsnet/try v0.0.3
+	github.com/dustin/go-humanize v1.0.1
 	github.com/go-json-experiment/json v0.0.0-20250725192818-e39067aee2d2
 	github.com/google/uuid v1.6.0
 	github.com/kaorimatz/go-opml v0.0.0-20210201121027-bc8e2852d7f9

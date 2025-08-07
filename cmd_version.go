@@ -4,6 +4,9 @@ import (
 	"os"
 	"runtime"
 	"runtime/debug"
+	timepkg "time"
+
+	"github.com/dustin/go-humanize"
 )
 
 type Cmd_version struct{}
@@ -31,6 +34,11 @@ func (Cmd_version) Run() int {
 		time = "unknown"
 	}
 
+	if t, err := timepkg.Parse(timepkg.RFC3339, time); err == nil {
+		const layout = "2006-01-02 15:04:05"
+		time = t.Format(layout) + " (" + humanize.Time(t) + ")"
+	}
+
 	s := "\n" +
 		"  Version          " + info.Main.Version + "\n" +
 		"  Git Commit       " + revision + "\n" +
@@ -39,6 +47,5 @@ func (Cmd_version) Run() int {
 		"  Platform         " + runtime.GOOS + "/" + runtime.GOARCH + "\n" +
 		"\n"
 	os.Stdout.WriteString(s) //nolint:errcheck
-
 	return 0
 }
