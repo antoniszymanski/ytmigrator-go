@@ -4,12 +4,10 @@
 package youtube
 
 import (
-	"context"
 	"errors"
 	"sync"
 
 	"github.com/antoniszymanski/ytmigrator-go/common"
-	"google.golang.org/api/youtube/v3"
 )
 
 func (m *Migrator) Export(opts common.ExportOptions) (common.UserData, error) {
@@ -50,24 +48,6 @@ func (m *Migrator) exportSubscriptions() (common.Subscriptions, error) {
 	return output, nil
 }
 
-func (m *Migrator) listSubscriptions() ([]*youtube.Subscription, error) {
-	var items []*youtube.Subscription
-	f := func(resp *youtube.SubscriptionListResponse) error {
-		items = append(items, resp.Items...)
-		return nil
-	}
-
-	err := m.client.Subscriptions.List([]string{"snippet"}).
-		MaxResults(50).
-		Mine(true).
-		Pages(context.Background(), f)
-	if err != nil {
-		return nil, err
-	}
-
-	return items, nil
-}
-
 func (m *Migrator) exportPlaylists() (common.Playlists, error) {
 	playlists, err := m.listPlaylists()
 	if err != nil {
@@ -89,40 +69,4 @@ func (m *Migrator) exportPlaylists() (common.Playlists, error) {
 	}
 
 	return output, nil
-}
-
-func (m *Migrator) listPlaylists() ([]*youtube.Playlist, error) {
-	var items []*youtube.Playlist
-	f := func(resp *youtube.PlaylistListResponse) error {
-		items = append(items, resp.Items...)
-		return nil
-	}
-
-	err := m.client.Playlists.List([]string{"snippet"}).
-		MaxResults(50).
-		Mine(true).
-		Pages(context.Background(), f)
-	if err != nil {
-		return nil, err
-	}
-
-	return items, nil
-}
-
-func (m *Migrator) listPlaylistItems(playlistId string) ([]*youtube.PlaylistItem, error) {
-	var items []*youtube.PlaylistItem
-	f := func(resp *youtube.PlaylistItemListResponse) error {
-		items = append(items, resp.Items...)
-		return nil
-	}
-
-	err := m.client.PlaylistItems.List([]string{"snippet"}).
-		MaxResults(50).
-		PlaylistId(playlistId).
-		Pages(context.Background(), f)
-	if err != nil {
-		return nil, err
-	}
-
-	return items, nil
 }

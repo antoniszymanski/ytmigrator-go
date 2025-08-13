@@ -60,7 +60,7 @@ func validateOneOf(got string, members ...string) error {
 	}
 	dst = append(dst, " but got "...)
 	dst = strconv.AppendQuote(dst, got)
-	return errors.New(common.Bytes2string(dst))
+	return errors.New(common.BytesToString(dst))
 }
 
 type YoutubeOptions struct {

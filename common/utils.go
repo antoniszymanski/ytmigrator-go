@@ -10,30 +10,37 @@ import (
 	"unsafe"
 )
 
+func Resize[S ~[]E, E any](s S, length int) S {
+	if length <= cap(s) {
+		return s[:length]
+	}
+	return append(s[:cap(s)], make(S, length-cap(s))...)
+}
+
+func Require[S ~[]E, E any](s S, capacity int) S {
+	if capacity <= cap(s) {
+		return s[:0]
+	}
+	return make(S, 0, capacity)
+}
+
 func ErrorAs[T error](err error) (T, bool) {
 	var target T
 	ok := errors.As(err, &target)
 	return target, ok
 }
 
-func Require[T any](s []T, length int) []T {
-	if length <= cap(s) {
-		return s[:0]
-	}
-	return make([]T, 0, length)
-}
-
 func Sha256(s string) string {
-	src := sha256.Sum256(string2bytes(s))
+	src := sha256.Sum256(StringToBytes(s))
 	dst := make([]byte, hex.EncodedLen(len(src)))
 	hex.Encode(dst, src[:])
-	return Bytes2string(dst)
+	return BytesToString(dst)
 }
 
-func string2bytes(s string) []byte {
+func StringToBytes(s string) []byte {
 	return unsafe.Slice(unsafe.StringData(s), len(s))
 }
 
-func Bytes2string(b []byte) string {
+func BytesToString(b []byte) string {
 	return unsafe.String(unsafe.SliceData(b), len(b))
 }
