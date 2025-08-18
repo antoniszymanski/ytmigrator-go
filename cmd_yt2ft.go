@@ -28,13 +28,13 @@ func (c *Cmd_yt2ft) Run() int {
 	dst := freetube.NewMigrator(c.Dir)
 	dst.SetLogger(&logger)
 
-	data, err := src.Export(c.ExportOptions)
+	data, err := src.ExportFrom(c.ExportOptions)
 	if err != nil {
 		logger.Err(err).Msg("failed to export data from YouTube")
 		return 1
 	}
 
-	if err = dst.Import(data); err != nil {
+	if err = dst.ImportTo(data); err != nil {
 		logger.Err(err).Msg("failed to import data to FreeTube")
 		return 1
 	}

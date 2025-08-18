@@ -6,8 +6,8 @@ package common
 import "github.com/rs/zerolog"
 
 type Migrator interface {
-	Import(data UserData) error
-	Export(opts ExportOptions) (data UserData, err error)
+	ImportTo(data UserData) error
+	ExportFrom(opts ExportOptions) (data UserData, err error)
 	SetLogger(logger *zerolog.Logger)
 }
 

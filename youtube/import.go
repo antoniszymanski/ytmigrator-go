@@ -14,7 +14,7 @@ import (
 	"google.golang.org/api/youtube/v3"
 )
 
-func (m *Migrator) Import(data common.UserData) error {
+func (m *Migrator) ImportTo(data common.UserData) error {
 	var wg sync.WaitGroup
 	errs := make([]error, 2)
 

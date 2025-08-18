@@ -10,7 +10,7 @@ import (
 	"github.com/antoniszymanski/ytmigrator-go/common"
 )
 
-func (m *Migrator) Export(opts common.ExportOptions) (common.UserData, error) {
+func (m *Migrator) ExportFrom(opts common.ExportOptions) (common.UserData, error) {
 	var data common.UserData
 	var wg sync.WaitGroup
 	errs := make([]error, 2)

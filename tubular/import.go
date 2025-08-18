@@ -14,7 +14,7 @@ import (
 	"github.com/antoniszymanski/ytmigrator-go/tubular/internal"
 )
 
-func (m *Migrator) Import(data common.UserData) error {
+func (m *Migrator) ImportTo(data common.UserData) error {
 	var wg sync.WaitGroup
 	errs := make([]error, 2)
 
