@@ -4,7 +4,7 @@ go 1.24.6
 
 require (
 	github.com/alexflint/go-arg v1.6.0
-	github.com/antoniszymanski/innertube-go v0.2.0
+	github.com/antoniszymanski/innertube-go v0.2.2
 	github.com/antoniszymanski/invidious-go v0.1.2
 	github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa
 	github.com/dsnet/try v0.0.3
@@ -38,8 +38,8 @@ require (
 	github.com/google/s2a-go v0.1.9 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.6 // indirect
 	github.com/googleapis/gax-go/v2 v2.15.0 // indirect
-	github.com/mattn/go-colorable v0.1.13 // indirect
-	github.com/mattn/go-isatty v0.0.19 // indirect
+	github.com/mattn/go-colorable v0.1.14 // indirect
+	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect

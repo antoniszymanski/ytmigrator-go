@@ -21,6 +21,7 @@ var args struct {
 	*Cmd_version `arg:"subcommand:version" help:"display version and exit"`
 	*Cmd_yt2i    `arg:"subcommand:yt2i"`
 	*Cmd_yt2ft   `arg:"subcommand:yt2ft"`
+	*Cmd_yt2t    `arg:"subcommand:yt2t"`
 }
 
 type LoggingOptions struct {
@@ -75,6 +76,10 @@ type InvidiousOptions struct {
 
 type FreetubeOptions struct {
 	Dir string `arg:"--freetube.dir" default:"freetube"`
+}
+
+type TubularOptions struct {
+	DSN string `arg:"--tubular.dsn,required"`
 }
 
 var logger zerolog.Logger
@@ -139,6 +144,8 @@ func main() {
 		code = args.Cmd_yt2i.Run()
 	case args.Cmd_yt2ft != nil:
 		code = args.Cmd_yt2ft.Run()
+	case args.Cmd_yt2t != nil:
+		code = args.Cmd_yt2t.Run()
 	}
 	os.Exit(code)
 }
