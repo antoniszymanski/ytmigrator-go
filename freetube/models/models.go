@@ -18,7 +18,7 @@ type Video struct {
 	Title          string `json:"title"`
 	Author         string `json:"author"`
 	AuthorID       string `json:"authorId"`
-	LengthSeconds  int    `json:"lengthSeconds"`
+	LengthSeconds  int64  `json:"lengthSeconds"`
 	TimeAdded      int64  `json:"timeAdded"`
 	PlaylistItemID string `json:"playlistItemId"`
 	Type           string `json:"type"`
