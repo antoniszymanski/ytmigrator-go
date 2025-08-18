@@ -7,7 +7,6 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"sync"
 	"time"
 
 	"github.com/antoniszymanski/ytmigrator-go/common"
@@ -15,23 +14,41 @@ import (
 )
 
 func (m *Migrator) ImportTo(data common.UserData) error {
-	var wg sync.WaitGroup
-	errs := make([]error, 2)
+	if err := m.importSubscriptions(data.Subscriptions); err != nil {
+		return err
+	}
+	return m.importPlaylists(data.Playlists)
+}
 
-	wg.Add(1)
-	go func() {
-		errs[0] = m.importSubscriptions(data.Subscriptions)
-		wg.Done()
-	}()
+func (m Migrator) importSubscriptions(subscriptions common.Subscriptions) error {
+	for _, channel := range subscriptions {
+		url := nullString(channelUrl(channel.ID))
+		has, err := m.queries.HasSubscribed(context.Background(), url)
+		if err != nil {
+			return err
+		}
+		if has != 0 {
+			continue
+		}
 
-	wg.Add(1)
-	go func() {
-		errs[1] = m.importPlaylists(data.Playlists)
-		wg.Done()
-	}()
-
-	wg.Wait()
-	return errors.Join(errs...)
+		channel, err := common.Innertube.GetChannel(channel.ID)
+		if err != nil {
+			return err
+		}
+		arg := internal.InsertSubscriptionParams{
+			Url:             url,
+			Name:            nullString(channel.Name),
+			SubscriberCount: sql.NullInt64{Valid: false},
+			Description:     nullString(channel.Description),
+		}
+		if thumbnail := channel.Thumbnails.Best(); thumbnail != nil {
+			arg.AvatarUrl = nullString(thumbnail.URL)
+		}
+		if err = m.queries.InsertSubscription(context.Background(), arg); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (m *Migrator) importPlaylists(playlists common.Playlists) error {
@@ -108,36 +125,5 @@ func (m *Migrator) importPlaylist(title common.PlaylistTitle, videoIDs []common.
 		}
 	}
 
-	return nil
-}
-
-func (m Migrator) importSubscriptions(subscriptions common.Subscriptions) error {
-	for _, channel := range subscriptions {
-		url := nullString(channelUrl(channel.ID))
-		has, err := m.queries.HasSubscribed(context.Background(), url)
-		if err != nil {
-			return err
-		}
-		if has != 0 {
-			continue
-		}
-
-		channel, err := common.Innertube.GetChannel(channel.ID)
-		if err != nil {
-			return err
-		}
-		arg := internal.InsertSubscriptionParams{
-			Url:             url,
-			Name:            nullString(channel.Name),
-			SubscriberCount: sql.NullInt64{Valid: false},
-			Description:     nullString(channel.Description),
-		}
-		if thumbnail := channel.Thumbnails.Best(); thumbnail != nil {
-			arg.AvatarUrl = nullString(thumbnail.URL)
-		}
-		if err = m.queries.InsertSubscription(context.Background(), arg); err != nil {
-			return err
-		}
-	}
 	return nil
 }

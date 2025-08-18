@@ -4,7 +4,6 @@
 package freetube
 
 import (
-	"context"
 	"errors"
 	"net/url"
 	"os"
@@ -16,7 +15,6 @@ import (
 	"github.com/go-json-experiment/json"
 	"github.com/google/uuid"
 	"github.com/kaorimatz/go-opml"
-	"golang.org/x/sync/errgroup"
 )
 
 func (m *Migrator) ImportTo(data common.UserData) error {
@@ -84,64 +82,45 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 	}
 
 	output := make([]models.Playlist, 0, len(input))
-	var mu sync.Mutex
-
-	g, ctx := errgroup.WithContext(context.Background())
-	g.SetLimit(30)
-
 	for playlistName, videoIDs := range input {
-		g.Go(func() error {
-			playlist := models.Playlist{
-				PlaylistName:  playlistName,
-				Protected:     false,
-				Description:   "",
-				Videos:        make([]models.Video, 0, len(videoIDs)),
-				ID:            common.Sha256(playlistName),
-				CreatedAt:     0,
-				LastUpdatedAt: 0,
-			}
+		playlist := models.Playlist{
+			PlaylistName:  playlistName,
+			Protected:     false,
+			Description:   "",
+			Videos:        make([]models.Video, 0, len(videoIDs)),
+			ID:            common.Sha256(playlistName),
+			CreatedAt:     0,
+			LastUpdatedAt: 0,
+		}
 
-			for _, videoID := range videoIDs {
-				select {
-				case <-ctx.Done():
-					return ctx.Err()
-				default:
-					v, err := common.Innertube.GetVideo(videoID)
-					if err != nil {
-						m.logger.Warn().Err(err).
-							Str("playlistName", playlistName).
-							Str("videoID", videoID).
-							Msg("failed to add video to the playlist")
-						continue
-					}
-					if v.LiveVideo != nil {
-						panic("unimplemented")
-					}
-					playlist.Videos = append(playlist.Videos, models.Video{
-						VideoID:        v.Video.ID,
-						Title:          v.Video.Title,
-						Author:         v.Video.Channel.Name,
-						AuthorID:       v.Video.Channel.ID,
-						LengthSeconds:  v.Video.Duration,
-						TimeAdded:      0,
-						PlaylistItemID: uuid.New().String(),
-						Type:           "video",
-					})
-					m.logger.Debug().
-						Str("playlistName", playlistName).
-						Str("videoID", videoID).
-						Msg("added video to the playlist")
-				}
+		for _, videoID := range videoIDs {
+			v, err := common.Innertube.GetVideo(videoID)
+			if err != nil {
+				m.logger.Warn().Err(err).
+					Str("playlistName", playlistName).
+					Str("videoID", videoID).
+					Msg("failed to add video to the playlist")
+				continue
 			}
-
-			mu.Lock()
-			output = append(output, playlist)
-			mu.Unlock()
-			return nil
-		})
-	}
-	if err := g.Wait(); err != nil {
-		return err
+			if v.LiveVideo != nil {
+				panic("unimplemented")
+			}
+			playlist.Videos = append(playlist.Videos, models.Video{
+				VideoID:        v.Video.ID,
+				Title:          v.Video.Title,
+				Author:         v.Video.Channel.Name,
+				AuthorID:       v.Video.Channel.ID,
+				LengthSeconds:  v.Video.Duration,
+				TimeAdded:      0,
+				PlaylistItemID: uuid.New().String(),
+				Type:           "video",
+			})
+			m.logger.Debug().
+				Str("playlistName", playlistName).
+				Str("videoID", videoID).
+				Msg("added video to the playlist")
+		}
+		output = append(output, playlist)
 	}
 
 	f, err := os.Create(filepath.Join(m.dir, "playlists.db"))
