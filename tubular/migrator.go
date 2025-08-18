@@ -28,7 +28,7 @@ func (m *Migrator) Close() error {
 	return m.db.Close()
 }
 
-func New(dsn string) (*Migrator, error) {
+func NewMigrator(dsn string) (*Migrator, error) {
 	db, err := sql.Open("sqlite3", dsn)
 	if err != nil {
 		return nil, err
