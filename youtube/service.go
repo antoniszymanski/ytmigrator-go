@@ -9,6 +9,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/antoniszymanski/stacktrace-go"
 	"github.com/cli/browser"
 	"github.com/dsnet/try"
 	"github.com/go-json-experiment/json"
@@ -95,10 +96,10 @@ func getCode() (string, error) {
 				return
 			}
 			w.Write([]byte("Success! Now you can close this page"))
-			go func() {
+			stacktrace.Go(func() {
 				<-r.Context().Done()
 				srv.Close()
-			}()
+			}, nil)
 		},
 	)
 	srv.Handler = mux

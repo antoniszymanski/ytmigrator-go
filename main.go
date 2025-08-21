@@ -12,6 +12,7 @@ import (
 	"strconv"
 
 	"github.com/alexflint/go-arg"
+	"github.com/antoniszymanski/stacktrace-go"
 	"github.com/antoniszymanski/ytmigrator-go/common"
 	"github.com/rs/zerolog"
 )
@@ -85,6 +86,8 @@ type TubularOptions struct {
 var logger zerolog.Logger
 
 func main() {
+	defer stacktrace.Handle(nil, true)
+
 	cfg := arg.Config{
 		Program: "ytmigrator-go",
 		Out:     os.Stderr,

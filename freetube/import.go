@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"sync"
 
+	"github.com/antoniszymanski/stacktrace-go"
 	"github.com/antoniszymanski/ytmigrator-go/common"
 	"github.com/antoniszymanski/ytmigrator-go/freetube/models"
 	"github.com/go-json-experiment/json"
@@ -22,16 +23,16 @@ func (m *Migrator) ImportTo(data common.UserData) error {
 	errs := make([]error, 2)
 
 	wg.Add(1)
-	go func() {
+	stacktrace.Go(func() {
 		errs[0] = m.importSubscriptions(data.Subscriptions)
 		wg.Done()
-	}()
+	}, nil)
 
 	wg.Add(1)
-	go func() {
+	stacktrace.Go(func() {
 		errs[1] = m.importPlaylists(data.Playlists)
 		wg.Done()
-	}()
+	}, nil)
 
 	wg.Wait()
 	return errors.Join(errs...)

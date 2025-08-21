@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"sync"
 
+	"github.com/antoniszymanski/stacktrace-go"
 	"github.com/antoniszymanski/ytmigrator-go/common"
 	"github.com/r3labs/diff/v3"
 	"google.golang.org/api/youtube/v3"
@@ -19,16 +20,16 @@ func (m *Migrator) ImportTo(data common.UserData) error {
 	errs := make([]error, 2)
 
 	wg.Add(1)
-	go func() {
+	stacktrace.Go(func() {
 		errs[0] = m.importSubscriptions(data.Subscriptions)
 		wg.Done()
-	}()
+	}, nil)
 
 	wg.Add(1)
-	go func() {
+	stacktrace.Go(func() {
 		errs[1] = m.importPlaylists(data.Playlists)
 		wg.Done()
-	}()
+	}, nil)
 
 	wg.Wait()
 	return errors.Join(errs...)

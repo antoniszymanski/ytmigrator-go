@@ -7,6 +7,7 @@ import (
 	"errors"
 	"sync"
 
+	"github.com/antoniszymanski/stacktrace-go"
 	"github.com/antoniszymanski/ytmigrator-go/common"
 )
 
@@ -16,17 +17,17 @@ func (m *Migrator) ExportFrom(opts common.ExportOptions) (common.UserData, error
 	errs := make([]error, 2)
 	if !opts.SkipSubscriptions {
 		wg.Add(1)
-		go func() {
+		stacktrace.Go(func() {
 			data.Subscriptions, errs[0] = m.exportSubscriptions()
 			wg.Done()
-		}()
+		}, nil)
 	}
 	if !opts.SkipPlaylists {
 		wg.Add(1)
-		go func() {
+		stacktrace.Go(func() {
 			data.Playlists, errs[1] = m.exportPlaylists()
 			wg.Done()
-		}()
+		}, nil)
 	}
 	wg.Wait()
 	return data, errors.Join(errs...)
