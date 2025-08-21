@@ -150,5 +150,5 @@ func main() {
 	case args.Cmd_yt2t != nil:
 		code = args.Cmd_yt2t.Run()
 	}
-	os.Exit(code)
+	os.Exit(code) //nolint:gocritic // exitAfterDefer
 }
