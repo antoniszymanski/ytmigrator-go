@@ -18,8 +18,8 @@ github.com/antoniszymanski/invidious-go v0.1.2 h1:+qFTGMvQTTXvLsLAHgPpjVodQDY5N2
 github.com/antoniszymanski/invidious-go v0.1.2/go.mod h1:909CE5jQ4Jqc6JPK56SYVSM2lC9QdHsePZfcWKsJv54=
 github.com/antoniszymanski/option-go v0.1.3 h1:iVxGXFDciIyl2pjbK8ImEqjwaiP/VsS29MmTXHWcOOc=
 github.com/antoniszymanski/option-go v0.1.3/go.mod h1:dsOWke3pmfVHxWO5AFOvl2dy35UoMPRBt2MV19B7iYI=
-github.com/antoniszymanski/stacktrace-go v0.1.0 h1:SHENe3eb11UpWbwrSobuPnsdVNfHUesV9JHNX8nfxiA=
-github.com/antoniszymanski/stacktrace-go v0.1.0/go.mod h1:EY2tDD/8SCbGwPfCQHtpw5es+j830UsLH9p5ohq99AA=
+github.com/antoniszymanski/stacktrace-go v0.2.0 h1:1LBWviwctqJ85EKUDON2ju6F+2C9F2hzoG6BuCKRRko=
+github.com/antoniszymanski/stacktrace-go v0.2.0/go.mod h1:EY2tDD/8SCbGwPfCQHtpw5es+j830UsLH9p5ohq99AA=
 github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa h1:TwQMqyL9qyLKVLfsx7bVC1JxMcFjGxdfio4Ttsp2pEc=
 github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa/go.mod h1:HH8s+fOAxjhQoBUAsKuPCbqUuxZDhQ2/aD+SzsEfBTk=
 github.com/coreos/go-systemd/v22 v22.5.0/go.mod h1:Y58oyj3AT4RCenI/lSvhwexgC+NSVTIJ3seZv2GcEnc=
