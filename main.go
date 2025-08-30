@@ -8,7 +8,6 @@ import (
 	"errors"
 	"io"
 	"os"
-	"slices"
 	"strconv"
 
 	"github.com/alexflint/go-arg"
@@ -30,28 +29,49 @@ type LoggingOptions struct {
 	Type  TypeOption  `arg:"--logging.type" default:"console"`
 }
 
-type LevelOption string
+type LevelOption zerolog.Level
 
 var _ encoding.TextUnmarshaler = (*LevelOption)(nil)
 
-func (opt *LevelOption) UnmarshalText(text []byte) error {
-	*opt = LevelOption(text)
-	return validateOneOf(string(text), "debug", "info", "warn", "error")
+func (opt *LevelOption) UnmarshalText(text []byte) (err error) {
+	switch got := string(text); got {
+	case "debug":
+		*opt = LevelOption(zerolog.DebugLevel)
+	case "info":
+		*opt = LevelOption(zerolog.InfoLevel)
+	case "warn":
+		*opt = LevelOption(zerolog.WarnLevel)
+	case "error":
+		*opt = LevelOption(zerolog.ErrorLevel)
+	default:
+		err = notOneOf(got, "debug", "info", "warn", "error")
+	}
+	return err
 }
 
-type TypeOption string
+type TypeOption struct {
+	Writer io.Writer
+}
 
 var _ encoding.TextUnmarshaler = (*TypeOption)(nil)
 
-func (opt *TypeOption) UnmarshalText(text []byte) error {
-	*opt = TypeOption(text)
-	return validateOneOf(string(text), "json", "console")
+func (opt *TypeOption) UnmarshalText(text []byte) (err error) {
+	switch got := string(text); got {
+	case "json":
+		opt.Writer = os.Stderr
+	case "console":
+		opt.Writer = zerolog.ConsoleWriter{
+			Out:         os.Stderr,
+			TimeFormat:  "2006/01/02 15:04:05",
+			FieldsOrder: []string{"error"},
+		}
+	default:
+		err = notOneOf(got, "json", "console")
+	}
+	return err
 }
 
-func validateOneOf(got string, members ...string) error {
-	if slices.Contains(members, got) {
-		return nil
-	}
+func notOneOf(got string, members ...string) error {
 	var dst []byte
 	dst = append(dst, "must be one of "...)
 	for i, member := range members {
@@ -85,7 +105,6 @@ type TubularOptions struct {
 
 func main() {
 	defer stacktrace.Handle(true, nil, nil)
-
 	cfg := arg.Config{
 		Program: "ytmigrator-go",
 		Out:     os.Stderr,
@@ -94,38 +113,15 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
 	var flags []string
 	if len(os.Args) > 0 {
 		flags = os.Args[1:]
 	}
 	err = p.Parse(flags)
-
 	if err == nil {
-		var w io.Writer
-		switch args.Type {
-		case "json":
-			w = os.Stderr
-		case "console":
-			w = zerolog.ConsoleWriter{
-				Out:         os.Stderr,
-				TimeFormat:  "2006/01/02 15:04:05",
-				FieldsOrder: []string{"error"},
-			}
-		}
-		common.Logger = zerolog.New(w).With().Timestamp().Logger()
-		switch args.Level {
-		case "debug":
-			common.Logger = common.Logger.Level(zerolog.DebugLevel)
-		case "info":
-			common.Logger = common.Logger.Level(zerolog.InfoLevel)
-		case "warn":
-			common.Logger = common.Logger.Level(zerolog.WarnLevel)
-		case "error":
-			common.Logger = common.Logger.Level(zerolog.ErrorLevel)
-		}
+		common.Logger = zerolog.New(args.Type.Writer).With().Timestamp().Logger()
+		common.Logger.Level(zerolog.Level(args.Level))
 	}
-
 	var code int
 	//nolint:errcheck
 	switch {
