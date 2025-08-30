@@ -3,13 +3,19 @@
 
 package common
 
-import "github.com/antoniszymanski/innertube-go/youtube"
+import (
+	"sync"
 
-var Innertube = Must(youtube.NewClient())
+	"github.com/antoniszymanski/innertube-go/youtube"
+	"github.com/rs/zerolog"
+)
 
-func Must[A any](a A, err error) A {
+var Logger zerolog.Logger
+
+var Innertube = sync.OnceValue(func() youtube.Client {
+	c, err := youtube.NewClient()
 	if err != nil {
 		panic(err)
 	}
-	return a
-}
+	return c
+})

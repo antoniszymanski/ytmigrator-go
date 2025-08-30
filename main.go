@@ -83,8 +83,6 @@ type TubularOptions struct {
 	DSN string `arg:"--tubular.dsn,required"`
 }
 
-var logger zerolog.Logger
-
 func main() {
 	defer stacktrace.Handle(true, nil, nil)
 
@@ -115,16 +113,16 @@ func main() {
 				FieldsOrder: []string{"error"},
 			}
 		}
-		logger = zerolog.New(w).With().Timestamp().Logger()
+		common.Logger = zerolog.New(w).With().Timestamp().Logger()
 		switch args.Level {
 		case "debug":
-			logger = logger.Level(zerolog.DebugLevel)
+			common.Logger = common.Logger.Level(zerolog.DebugLevel)
 		case "info":
-			logger = logger.Level(zerolog.InfoLevel)
+			common.Logger = common.Logger.Level(zerolog.InfoLevel)
 		case "warn":
-			logger = logger.Level(zerolog.WarnLevel)
+			common.Logger = common.Logger.Level(zerolog.WarnLevel)
 		case "error":
-			logger = logger.Level(zerolog.ErrorLevel)
+			common.Logger = common.Logger.Level(zerolog.ErrorLevel)
 		}
 	}
 

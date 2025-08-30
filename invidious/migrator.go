@@ -12,21 +12,15 @@ import (
 	"github.com/antoniszymanski/ytmigrator-go/invidious/models"
 	"github.com/dsnet/try"
 	"github.com/go-json-experiment/json"
-	"github.com/rs/zerolog"
 )
 
 type Migrator struct {
-	logger      *zerolog.Logger
 	takeoutFile *os.File
 	takeout     models.Takeout
 	client      *invidious.Client
 }
 
 var _ common.Migrator = (*Migrator)(nil)
-
-func (m *Migrator) SetLogger(logger *zerolog.Logger) {
-	m.logger = logger
-}
 
 func (m *Migrator) Close() (err error) {
 	defer try.Handle(&err)

@@ -1,3 +1,3 @@
 {
-  "conventionalCommits.scopes": ["freetube", "invidious", "youtube", "tubular"]
+  "conventionalCommits.scopes": ["freetube", "invidious", "youtube", "tubular", "common"]
 }

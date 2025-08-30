@@ -3,12 +3,9 @@
 
 package common
 
-import "github.com/rs/zerolog"
-
 type Migrator interface {
 	ImportTo(data UserData) error
 	ExportFrom(opts ExportOptions) (data UserData, err error)
-	SetLogger(logger *zerolog.Logger)
 }
 
 type ExportOptions struct {

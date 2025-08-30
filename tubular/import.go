@@ -31,7 +31,7 @@ func (m Migrator) importSubscriptions(subscriptions common.Subscriptions) error 
 			continue
 		}
 
-		channel, err := common.Innertube.GetChannel(channel.ID)
+		channel, err := common.Innertube().GetChannel(channel.ID)
 		if err != nil {
 			return err
 		}
@@ -67,7 +67,7 @@ func (m *Migrator) importPlaylist(title common.PlaylistTitle, videoIDs []common.
 		id, err := m.queries.Stream(context.Background(), url)
 		switch {
 		case errors.Is(err, sql.ErrNoRows):
-			v, err := common.Innertube.GetVideo(videoID)
+			v, err := common.Innertube().GetVideo(videoID)
 			if err != nil {
 				return err
 			}

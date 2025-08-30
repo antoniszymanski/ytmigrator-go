@@ -37,7 +37,7 @@ func (m *Migrator) ImportTo(data common.UserData) error {
 
 func (m *Migrator) importSubscriptions(input common.Subscriptions) error {
 	if input == nil {
-		m.logger.Info().Msg("importing subscriptions has been omitted")
+		common.Logger.Info().Msg("importing subscriptions has been omitted")
 		return nil
 	}
 
@@ -82,7 +82,7 @@ func (m *Migrator) importSubscriptions(input common.Subscriptions) error {
 
 func (m *Migrator) importPlaylists(input common.Playlists) error {
 	if input == nil {
-		m.logger.Info().Msg("importing playlists has been omitted")
+		common.Logger.Info().Msg("importing playlists has been omitted")
 		return nil
 	}
 

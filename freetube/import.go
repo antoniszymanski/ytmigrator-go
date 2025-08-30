@@ -95,7 +95,7 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 		}
 
 		for _, videoID := range videoIDs {
-			v, err := common.Innertube.GetVideo(videoID)
+			v, err := common.Innertube().GetVideo(videoID)
 			if err != nil {
 				m.logger.Warn().Err(err).
 					Str("playlistName", playlistName).
