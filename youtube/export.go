@@ -20,14 +20,14 @@ func (m *Migrator) ExportFrom(opts common.ExportOptions) (common.UserData, error
 		stacktrace.Go(func() {
 			data.Subscriptions, errs[0] = m.exportSubscriptions()
 			wg.Done()
-		}, nil)
+		}, nil, nil)
 	}
 	if !opts.SkipPlaylists {
 		wg.Add(1)
 		stacktrace.Go(func() {
 			data.Playlists, errs[1] = m.exportPlaylists()
 			wg.Done()
-		}, nil)
+		}, nil, nil)
 	}
 	wg.Wait()
 	return data, errors.Join(errs...)

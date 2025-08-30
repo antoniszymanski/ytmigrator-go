@@ -86,7 +86,7 @@ type TubularOptions struct {
 var logger zerolog.Logger
 
 func main() {
-	defer stacktrace.Handle(nil, true)
+	defer stacktrace.Handle(true, nil, nil)
 
 	cfg := arg.Config{
 		Program: "ytmigrator-go",

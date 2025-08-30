@@ -23,13 +23,13 @@ func (m *Migrator) ImportTo(data common.UserData) error {
 	stacktrace.Go(func() {
 		errs[0] = m.importSubscriptions(data.Subscriptions)
 		wg.Done()
-	}, nil)
+	}, nil, nil)
 
 	wg.Add(1)
 	stacktrace.Go(func() {
 		errs[1] = m.importPlaylists(data.Playlists)
 		wg.Done()
-	}, nil)
+	}, nil, nil)
 
 	wg.Wait()
 	return errors.Join(errs...)

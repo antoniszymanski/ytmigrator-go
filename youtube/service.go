@@ -99,7 +99,7 @@ func getCode() (string, error) {
 			stacktrace.Go(func() {
 				<-r.Context().Done()
 				srv.Close()
-			}, nil)
+			}, nil, nil)
 		},
 	)
 	srv.Handler = mux
