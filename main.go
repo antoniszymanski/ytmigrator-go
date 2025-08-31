@@ -126,9 +126,9 @@ func main() {
 	//nolint:errcheck
 	switch {
 	case err == arg.ErrHelp:
-		p.WriteHelpForSubcommand(cfg.Out, p.SubcommandNames()...)
+		p.WriteHelp(cfg.Out)
 	case err != nil:
-		p.WriteHelpForSubcommand(cfg.Out, p.SubcommandNames()...)
+		p.WriteHelp(cfg.Out)
 		os.Stderr.WriteString(err.Error())
 		os.Stderr.WriteString("\n")
 		code = 2
