@@ -10,7 +10,6 @@ import (
 	"github.com/antoniszymanski/invidious-go"
 	"github.com/antoniszymanski/ytmigrator-go/common"
 	"github.com/antoniszymanski/ytmigrator-go/invidious/models"
-	"github.com/dsnet/try"
 	"github.com/go-json-experiment/json"
 )
 
@@ -22,12 +21,16 @@ type Migrator struct {
 
 var _ common.Migrator = (*Migrator)(nil)
 
-func (m *Migrator) Close() (err error) {
-	defer try.Handle(&err)
-
-	try.E1(m.takeoutFile.Seek(0, io.SeekStart))
-	try.E(m.takeoutFile.Truncate(0))
-	try.E(json.MarshalWrite(m.takeoutFile, &m.takeout))
+func (m *Migrator) Close() error {
+	if _, err := m.takeoutFile.Seek(0, io.SeekStart); err != nil {
+		return err
+	}
+	if err := m.takeoutFile.Truncate(0); err != nil {
+		return err
+	}
+	if err := json.MarshalWrite(m.takeoutFile, &m.takeout); err != nil {
+		return err
+	}
 	return m.takeoutFile.Close()
 }
 

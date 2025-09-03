@@ -11,7 +11,6 @@ import (
 
 	"github.com/antoniszymanski/stacktrace-go"
 	"github.com/cli/browser"
-	"github.com/dsnet/try"
 	"github.com/go-json-experiment/json"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -19,27 +18,34 @@ import (
 	"google.golang.org/api/youtube/v3"
 )
 
-func NewService(credentialsPath, tokenPath string) (_ *youtube.Service, err error) {
-	defer try.Handle(&err)
-
-	config := try.E1(getConfig(credentialsPath))
-	token := try.E1(getToken(config, tokenPath))
-	service := try.E1(getService(token))
-	return service, nil
+func NewService(credentialsPath, tokenPath string) (*youtube.Service, error) {
+	config, err := getConfig(credentialsPath)
+	if err != nil {
+		return nil, err
+	}
+	token, err := getToken(config, tokenPath)
+	if err != nil {
+		return nil, err
+	}
+	return getService(token)
 }
 
-func getConfig(path string) (config *oauth2.Config, err error) {
-	defer try.Handle(&err)
-
-	data := try.E1(os.ReadFile(path))
-	config = try.E1(google.ConfigFromJSON(
+func getConfig(path string) (*oauth2.Config, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	config, err := google.ConfigFromJSON(
 		data,
 		youtube.YoutubeScope,
 		youtube.YoutubeForceSslScope,
 		youtube.YoutubepartnerScope,
-	))
+	)
+	if err != nil {
+		return nil, err
+	}
 	config.RedirectURL = "http://localhost:8080"
-	return
+	return config, nil
 }
 
 func getService(t *oauth2.Token) (*youtube.Service, error) {
@@ -65,21 +71,28 @@ func getToken(config *oauth2.Config, path string) (*oauth2.Token, error) {
 	return nil, err
 }
 
-func getTokenFromFile(path string) (t *oauth2.Token, err error) {
-	defer try.Handle(&err)
-
-	f := try.E1(os.Open(path))
+func getTokenFromFile(path string) (*oauth2.Token, error) {
+	f, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
 	defer f.Close() //nolint:errcheck
-	try.E(json.UnmarshalRead(f, &t))
-	return
+	var t *oauth2.Token
+	if err = json.UnmarshalRead(f, &t); err != nil {
+		return nil, err
+	}
+	return t, nil
 }
 
-func getTokenFromWeb(config *oauth2.Config) (t *oauth2.Token, err error) {
-	defer try.Handle(&err)
-
+func getTokenFromWeb(config *oauth2.Config) (*oauth2.Token, error) {
 	authURL := config.AuthCodeURL("", oauth2.AccessTypeOffline)
-	try.E(browser.OpenURL(authURL))
-	code := try.E1(getCode())
+	if err := browser.OpenURL(authURL); err != nil {
+		return nil, err
+	}
+	code, err := getCode()
+	if err != nil {
+		return nil, err
+	}
 	return config.Exchange(context.Background(), code)
 }
 
@@ -110,10 +123,11 @@ func getCode() (string, error) {
 	return code, nil
 }
 
-func saveToken(path string, token *oauth2.Token) (err error) {
-	defer try.Handle(&err)
-
-	f := try.E1(os.Create(path))
+func saveToken(path string, token *oauth2.Token) error {
+	f, err := os.Create(path)
+	if err != nil {
+		return err
+	}
 	defer f.Close() //nolint:errcheck
 	return json.MarshalWrite(f, token)
 }
