@@ -120,7 +120,7 @@ func main() {
 	err = p.Parse(flags)
 	if err == nil {
 		common.Logger = zerolog.New(args.Type.Writer).With().Timestamp().Logger()
-		common.Logger.Level(zerolog.Level(args.Level))
+		common.Logger = common.Logger.Level(zerolog.Level(args.Level))
 	}
 	var code int
 	//nolint:errcheck
