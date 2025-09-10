@@ -7,7 +7,7 @@ tool github.com/sqlc-dev/sqlc/cmd/sqlc
 require (
 	github.com/alexflint/go-arg v1.6.0
 	github.com/antoniszymanski/innertube-go v0.2.3
-	github.com/antoniszymanski/invidious-go v0.1.2
+	github.com/antoniszymanski/invidious-go v0.1.4
 	github.com/antoniszymanski/stacktrace-go v0.3.2
 	github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa
 	github.com/dustin/go-humanize v1.0.1
@@ -82,7 +82,7 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/crypto v0.41.0 // indirect
-	golang.org/x/exp v0.0.0-20250813145105-42675adae3e6 // indirect
+	golang.org/x/exp v0.0.0-20250819193227-8b4c13bb791b // indirect
 	golang.org/x/net v0.43.0 // indirect
 	golang.org/x/sync v0.16.0 // indirect
 	golang.org/x/sys v0.36.0 // indirect
