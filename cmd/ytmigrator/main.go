@@ -106,7 +106,7 @@ type TubularOptions struct {
 func main() {
 	defer stacktrace.Handle(true, nil, nil)
 	cfg := arg.Config{
-		Program: "ytmigrator-go",
+		Program: "ytmigrator",
 		Out:     os.Stderr,
 	}
 	p, err := arg.NewParser(cfg, &args)
