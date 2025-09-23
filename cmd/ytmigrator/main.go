@@ -123,14 +123,12 @@ func main() {
 		common.Logger = common.Logger.Level(zerolog.Level(args.Level))
 	}
 	var code int
-	//nolint:errcheck
 	switch {
 	case err == arg.ErrHelp:
 		p.WriteHelp(cfg.Out)
 	case err != nil:
 		p.WriteHelp(cfg.Out)
-		os.Stderr.WriteString(err.Error())
-		os.Stderr.WriteString("\n")
+		printErr(err)
 		code = 2
 	default: //nolint:staticcheck,gocritic
 		p.WriteHelp(cfg.Out)
@@ -145,4 +143,11 @@ func main() {
 		code = args.Cmd_yt2t.Run()
 	}
 	os.Exit(code) //nolint:gocritic // exitAfterDefer
+}
+
+//nolint:errcheck
+func printErr(err error) {
+	os.Stderr.WriteString("error: ")
+	os.Stderr.WriteString(err.Error())
+	os.Stderr.WriteString("\n")
 }
