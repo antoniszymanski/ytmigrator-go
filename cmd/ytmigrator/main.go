@@ -147,7 +147,6 @@ func main() {
 
 //nolint:errcheck
 func printErr(err error) {
-	os.Stderr.WriteString("error: ")
 	os.Stderr.WriteString(err.Error())
 	os.Stderr.WriteString("\n")
 }
