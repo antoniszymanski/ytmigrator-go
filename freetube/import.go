@@ -40,7 +40,7 @@ func (m *Migrator) ImportTo(data common.UserData) error {
 
 func (m *Migrator) importSubscriptions(input common.Subscriptions) error {
 	if input == nil {
-		m.logger.Info().Msg("importing subscriptions has been omitted")
+		common.Logger.Info().Msg("importing subscriptions has been omitted")
 		return nil
 	}
 
@@ -78,7 +78,7 @@ func (m *Migrator) importSubscriptions(input common.Subscriptions) error {
 
 func (m *Migrator) importPlaylists(input common.Playlists) error {
 	if input == nil {
-		m.logger.Info().Msg("importing playlists has been omitted")
+		common.Logger.Info().Msg("importing playlists has been omitted")
 		return nil
 	}
 
@@ -97,7 +97,7 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 		for _, videoID := range videoIDs {
 			v, err := common.Innertube().GetVideo(videoID)
 			if err != nil {
-				m.logger.Warn().Err(err).
+				common.Logger.Warn().Err(err).
 					Str("playlistName", playlistName).
 					Str("videoID", videoID).
 					Msg("failed to add video to the playlist")
@@ -116,7 +116,7 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 				PlaylistItemID: uuid.New().String(),
 				Type:           "video",
 			})
-			m.logger.Debug().
+			common.Logger.Debug().
 				Str("playlistName", playlistName).
 				Str("videoID", videoID).
 				Msg("added video to the playlist")

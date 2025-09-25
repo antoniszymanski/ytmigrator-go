@@ -3,20 +3,8 @@
 
 package freetube
 
-import (
-	"github.com/antoniszymanski/ytmigrator-go/common"
-	"github.com/rs/zerolog"
-)
-
 type Migrator struct {
-	logger *zerolog.Logger
-	dir    string
-}
-
-var _ common.Migrator = (*Migrator)(nil)
-
-func (m *Migrator) SetLogger(logger *zerolog.Logger) {
-	m.logger = logger
+	dir string
 }
 
 func NewMigrator(dir string) *Migrator {
