@@ -13,7 +13,7 @@ import (
 var Logger zerolog.Logger
 
 var Innertube = sync.OnceValue(func() youtube.Client {
-	c, err := youtube.NewClient()
+	c, err := youtube.NewClient(nil)
 	if err != nil {
 		panic(err)
 	}
