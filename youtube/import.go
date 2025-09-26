@@ -60,16 +60,22 @@ func (m *Migrator) importSubscriptions(input common.Subscriptions) error {
 	if err != nil {
 		return err
 	}
-	for _, c := range cl {
+	createSubscription := func(c diff.Change) error {
+		return m.insertSubscription(c.To.(string))
+	}
+	deleteSubscription := func(c diff.Change) error {
 		i, err := strconv.Atoi(c.Path[0])
 		if err != nil {
 			return err
 		}
+		return m.deleteSubscription(subscriptions[i].Id)
+	}
+	for _, c := range cl {
 		switch c.Type {
 		case diff.CREATE:
-			err = m.insertSubscription(c.To.(string))
+			err = createSubscription(c)
 		case diff.DELETE:
-			err = m.deleteSubscription(subscriptions[i].Id)
+			err = deleteSubscription(c)
 		default:
 			panic("unreachable")
 		}
