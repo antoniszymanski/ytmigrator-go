@@ -126,7 +126,6 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 	if err != nil {
 		return err
 	}
-
 	createPlaylist := func(c diff.Change) error {
 		var entry entry
 		var err error
@@ -198,9 +197,7 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 		entries[c.Path[0]] = entry
 		return nil
 	}
-
 	for _, c := range cl {
-		var err error
 		switch len(c.Path) {
 		case 1:
 			switch c.Type {
@@ -229,6 +226,5 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 			return err
 		}
 	}
-
 	return nil
 }
