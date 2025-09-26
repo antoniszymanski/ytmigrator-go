@@ -121,7 +121,7 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 		src[title] = videoIDs
 	}
 
-	d := &diff.Differ{SliceOrdering: true}
+	d := diff.Differ{SliceOrdering: true}
 	cl, err := d.Diff(src, input)
 	if err != nil {
 		return err
