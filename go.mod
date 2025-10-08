@@ -18,7 +18,7 @@ require (
 	github.com/r3labs/diff/v3 v3.0.2
 	github.com/rs/zerolog v1.34.0
 	golang.org/x/oauth2 v0.32.0
-	golang.org/x/term v0.35.0
+	golang.org/x/term v0.36.0
 	google.golang.org/api v0.252.0
 )
 
@@ -86,7 +86,7 @@ require (
 	golang.org/x/exp v0.0.0-20250819193227-8b4c13bb791b // indirect
 	golang.org/x/net v0.44.0 // indirect
 	golang.org/x/sync v0.17.0 // indirect
-	golang.org/x/sys v0.36.0 // indirect
+	golang.org/x/sys v0.37.0 // indirect
 	golang.org/x/text v0.29.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250707201910-8d1bb00bc6a7 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20251002232023-7c0ddcbb5797 // indirect
