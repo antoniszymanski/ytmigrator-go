@@ -9,6 +9,7 @@ import (
 	"errors"
 	"time"
 
+	"github.com/antoniszymanski/innertube-go/youtube"
 	"github.com/antoniszymanski/ytmigrator-go/common"
 	"github.com/antoniszymanski/ytmigrator-go/tubular/internal"
 )
@@ -68,6 +69,10 @@ func (m *Migrator) importPlaylist(title common.PlaylistTitle, videoIDs []common.
 		switch {
 		case errors.Is(err, sql.ErrNoRows):
 			v, err := common.Innertube().GetVideo(videoID)
+			if _, ok := err.(youtube.ErrVideoNotFound); ok {
+				common.Logger.Warn().Str("videoID", videoID).Msg("video not found")
+				continue
+			}
 			if err != nil {
 				return err
 			}
