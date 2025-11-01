@@ -8,7 +8,7 @@ require (
 	github.com/alexflint/go-arg v1.6.0
 	github.com/antoniszymanski/innertube-go v0.3.1
 	github.com/antoniszymanski/invidious-go v0.1.5
-	github.com/antoniszymanski/stacktrace-go v0.3.4
+	github.com/antoniszymanski/stacktrace-go v0.3.5
 	github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa
 	github.com/dustin/go-humanize v1.0.1
 	github.com/go-json-experiment/json v0.0.0-20251027170946-4849db3c2f7e
