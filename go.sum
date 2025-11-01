@@ -25,8 +25,8 @@ github.com/antoniszymanski/invidious-go v0.1.5 h1:uCavgxvR6TjLI/ftZglpgtB5WDQYGg
 github.com/antoniszymanski/invidious-go v0.1.5/go.mod h1:mfZZrIKVtElwrKYYSlsrA83F9E9UmC1kceHX8Czh+Xc=
 github.com/antoniszymanski/option-go v0.2.2 h1:KhG7mnMdc43ZveunIZvTXoUOWgYtC0ohrX766SGTGIM=
 github.com/antoniszymanski/option-go v0.2.2/go.mod h1:Lp7HRITKtcMA69eDG7ZV0RMH0a9bbGtlsmo77aTpOPs=
-github.com/antoniszymanski/stacktrace-go v0.3.4 h1:yaG3zFrTkK8ItFfi3i1fpJ3J4Al/BvEx/5QnVCKmWMM=
-github.com/antoniszymanski/stacktrace-go v0.3.4/go.mod h1:EY2tDD/8SCbGwPfCQHtpw5es+j830UsLH9p5ohq99AA=
+github.com/antoniszymanski/stacktrace-go v0.3.5 h1:FQ+CPiBn38bHKRPBSY/+1n9KyTzqV+9qr3uq2u3NNOA=
+github.com/antoniszymanski/stacktrace-go v0.3.5/go.mod h1:EY2tDD/8SCbGwPfCQHtpw5es+j830UsLH9p5ohq99AA=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa h1:TwQMqyL9qyLKVLfsx7bVC1JxMcFjGxdfio4Ttsp2pEc=
 github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa/go.mod h1:HH8s+fOAxjhQoBUAsKuPCbqUuxZDhQ2/aD+SzsEfBTk=
