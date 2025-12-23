@@ -5,7 +5,7 @@ go 1.25
 tool github.com/sqlc-dev/sqlc/cmd/sqlc
 
 require (
-	github.com/alexflint/go-arg v1.6.0
+	github.com/alexflint/go-arg v1.6.1
 	github.com/antoniszymanski/innertube-go v0.3.1
 	github.com/antoniszymanski/invidious-go v0.1.5
 	github.com/antoniszymanski/stacktrace-go v0.3.5
