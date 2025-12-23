@@ -16,7 +16,7 @@ import (
 	"github.com/rs/zerolog"
 )
 
-var args struct {
+type Cli struct {
 	LoggingOptions
 	*Cmd_version `arg:"subcommand:version" help:"display version and exit"`
 	*Cmd_yt2i    `arg:"subcommand:yt2i"`
@@ -109,7 +109,8 @@ func main() {
 		Program: "ytmigrator",
 		Out:     os.Stderr,
 	}
-	p, err := arg.NewParser(cfg, &args)
+	var cli Cli
+	p, err := arg.NewParser(cfg, &cli)
 	if err != nil {
 		panic(err)
 	}
@@ -119,8 +120,8 @@ func main() {
 	}
 	err = p.Parse(flags)
 	if err == nil {
-		common.Logger = zerolog.New(args.Type.Writer).With().Timestamp().Logger()
-		common.Logger = common.Logger.Level(zerolog.Level(args.Level))
+		common.Logger = zerolog.New(cli.Type.Writer).With().Timestamp().Logger()
+		common.Logger = common.Logger.Level(zerolog.Level(cli.Level))
 	}
 	var code int
 	switch {
@@ -133,14 +134,14 @@ func main() {
 	default: //nolint:staticcheck,gocritic
 		p.WriteHelp(cfg.Out)
 		code = 2
-	case args.Cmd_version != nil:
-		code = args.Cmd_version.Run()
-	case args.Cmd_yt2i != nil:
-		code = args.Cmd_yt2i.Run()
-	case args.Cmd_yt2ft != nil:
-		code = args.Cmd_yt2ft.Run()
-	case args.Cmd_yt2t != nil:
-		code = args.Cmd_yt2t.Run()
+	case cli.Cmd_version != nil:
+		code = cli.Cmd_version.Run()
+	case cli.Cmd_yt2i != nil:
+		code = cli.Cmd_yt2i.Run()
+	case cli.Cmd_yt2ft != nil:
+		code = cli.Cmd_yt2ft.Run()
+	case cli.Cmd_yt2t != nil:
+		code = cli.Cmd_yt2t.Run()
 	}
 	os.Exit(code) //nolint:gocritic // exitAfterDefer
 }
