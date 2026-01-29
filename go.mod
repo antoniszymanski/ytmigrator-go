@@ -19,7 +19,7 @@ require (
 	github.com/rs/zerolog v1.34.0
 	golang.org/x/oauth2 v0.34.0
 	golang.org/x/term v0.39.0
-	google.golang.org/api v0.263.0
+	google.golang.org/api v0.264.0
 )
 
 require (
