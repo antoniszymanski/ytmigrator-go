@@ -17,7 +17,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.33
 	github.com/r3labs/diff/v3 v3.0.2
 	github.com/rs/zerolog v1.34.0
-	golang.org/x/oauth2 v0.34.0
+	golang.org/x/oauth2 v0.35.0
 	golang.org/x/term v0.39.0
 	google.golang.org/api v0.265.0
 )
