@@ -1,6 +1,6 @@
 module github.com/antoniszymanski/ytmigrator-go
 
-go 1.25
+go 1.26
 
 tool github.com/sqlc-dev/sqlc/cmd/sqlc
 
@@ -11,7 +11,7 @@ require (
 	github.com/antoniszymanski/stacktrace-go v0.3.5
 	github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa
 	github.com/dustin/go-humanize v1.0.1
-	github.com/go-json-experiment/json v0.0.0-20251027170946-4849db3c2f7e
+	github.com/go-json-experiment/json v0.0.0-20260214004413-d219187c3433
 	github.com/google/uuid v1.6.0
 	github.com/kaorimatz/go-opml v0.0.0-20210201121027-bc8e2852d7f9
 	github.com/mattn/go-sqlite3 v1.14.34
