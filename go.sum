@@ -27,6 +27,8 @@ github.com/antoniszymanski/option-go v0.3.0 h1:91lBprOGgTJ2xZGCEPbFC5VqzsHjY3GyY
 github.com/antoniszymanski/option-go v0.3.0/go.mod h1:7SFqQQpRK81BMwToya76vPllbU//Caj4IpVcdTWlx08=
 github.com/antoniszymanski/stacktrace-go v0.3.5 h1:FQ+CPiBn38bHKRPBSY/+1n9KyTzqV+9qr3uq2u3NNOA=
 github.com/antoniszymanski/stacktrace-go v0.3.5/go.mod h1:EY2tDD/8SCbGwPfCQHtpw5es+j830UsLH9p5ohq99AA=
+github.com/avast/retry-go/v5 v5.0.0 h1:kf1Qc2UsTZ4qq8elDymqfbISvkyMuhgRxuJqX2NHP7k=
+github.com/avast/retry-go/v5 v5.0.0/go.mod h1://d+usmKWio1agtZfS1H/ltTqwtIfBnRq9zEwjc3eH8=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/cespare/xxhash/v2 v2.3.0 h1:UL815xU9SqsFlibzuggzjXhog7bL6oX9BbNZnL2UFvs=
 github.com/cespare/xxhash/v2 v2.3.0/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=
