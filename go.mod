@@ -6,8 +6,8 @@ tool github.com/sqlc-dev/sqlc/cmd/sqlc
 
 require (
 	github.com/alexflint/go-arg v1.6.1
-	github.com/antoniszymanski/innertube-go v0.3.1
-	github.com/antoniszymanski/invidious-go v0.1.5
+	github.com/antoniszymanski/innertube-go v0.4.1
+	github.com/antoniszymanski/invidious-go v0.1.6
 	github.com/antoniszymanski/stacktrace-go v0.3.5
 	github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa
 	github.com/dustin/go-humanize v1.0.1
@@ -18,7 +18,7 @@ require (
 	github.com/r3labs/diff/v3 v3.0.2
 	github.com/rs/zerolog v1.34.0
 	golang.org/x/oauth2 v0.35.0
-	golang.org/x/term v0.40.0
+	golang.org/x/term v0.39.0
 	google.golang.org/api v0.266.0
 )
 
@@ -31,13 +31,13 @@ require (
 	github.com/alexflint/go-scalar v1.2.0 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.1 // indirect
 	github.com/antoniszymanski/gopc-go v0.1.0 // indirect
-	github.com/antoniszymanski/option-go v0.2.2 // indirect
+	github.com/antoniszymanski/option-go v0.3.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/cubicdaiya/gonp v1.0.4 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dlclark/regexp2 v1.11.4 // indirect
-	github.com/dop251/goja v0.0.0-20251008123653-cf18d89f3cf6 // indirect
-	github.com/dop251/goja_nodejs v0.0.0-20251015164255-5e94316bedaf // indirect
+	github.com/dop251/goja v0.0.0-20260106131823-651366fbe6e3 // indirect
+	github.com/dop251/goja_nodejs v0.0.0-20260212111938-1f56ff5bcf14 // indirect
 	github.com/dsnet/try v0.0.3 // indirect
 	github.com/fatih/structtag v1.2.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
@@ -84,10 +84,10 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/crypto v0.47.0 // indirect
-	golang.org/x/exp v0.0.0-20251017212417-90e834f514db // indirect
+	golang.org/x/exp v0.0.0-20260212183809-81e46e3db34a // indirect
 	golang.org/x/net v0.49.0 // indirect
 	golang.org/x/sync v0.19.0 // indirect
-	golang.org/x/sys v0.41.0 // indirect
+	golang.org/x/sys v0.40.0 // indirect
 	golang.org/x/text v0.33.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260128011058-8636f8732409 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260203192932-546029d2fa20 // indirect

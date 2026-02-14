@@ -83,8 +83,8 @@ func (m *Migrator) importPlaylist(title common.PlaylistTitle, videoIDs []common.
 				Url:         url,
 				Title:       v.Video.Title,
 				Duration:    v.Video.Duration,
-				Uploader:    v.Video.Channel.Name,
-				UploaderUrl: nullString(v.Video.Channel.URL),
+				Uploader:    v.Video.Channel.Unwrap().Name,
+				UploaderUrl: nullString(v.Video.Channel.Unwrap().URL),
 			}
 			if v.Video.ViewCount.IsSome() {
 				arg.ViewCount = nullInt64(v.Video.ViewCount.Unwrap())

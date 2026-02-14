@@ -109,8 +109,8 @@ func (m *Migrator) importPlaylists(input common.Playlists) error {
 			playlist.Videos = append(playlist.Videos, models.Video{
 				VideoID:        v.Video.ID,
 				Title:          v.Video.Title,
-				Author:         v.Video.Channel.Name,
-				AuthorID:       v.Video.Channel.ID,
+				Author:         v.Video.Channel.Unwrap().Name,
+				AuthorID:       v.Video.Channel.Unwrap().ID,
 				LengthSeconds:  v.Video.Duration,
 				TimeAdded:      0,
 				PlaylistItemID: uuid.New().String(),
