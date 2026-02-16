@@ -19,8 +19,8 @@ github.com/antlr4-go/antlr/v4 v4.13.1 h1:SqQKkuVZ+zWkMMNkjy5FZe5mr5WURWnlpmOuzYW
 github.com/antlr4-go/antlr/v4 v4.13.1/go.mod h1:GKmUxMtwp6ZgGwZSva4eWPC5mS6vUAmOABFgjdkM7Nw=
 github.com/antoniszymanski/gopc-go v0.1.0 h1:TADokO6Kk/9Ags8AogUDRUh1KcIDsu5bGQZLanKu/xM=
 github.com/antoniszymanski/gopc-go v0.1.0/go.mod h1:X2lf835vVx6vlJ+53yvpi0kqfqKz7tPTmVkHf3IwnY4=
-github.com/antoniszymanski/innertube-go v0.4.1 h1:9XVUWFy25du4Q7Ajng0ZryFd9bHDhgpwFT+x717iR3E=
-github.com/antoniszymanski/innertube-go v0.4.1/go.mod h1:QCzmcT871qk5lTZK+KB1LcmJmDNqnEuKLJu8JyTEb7g=
+github.com/antoniszymanski/innertube-go v0.4.3 h1:+rVicC0FCx1nF8iCdTALhz92B1oewY1bACTMeLTO48A=
+github.com/antoniszymanski/innertube-go v0.4.3/go.mod h1:kSrLalEreTR3A+c2Zts/eqPx9eujGeI+JoJpd9tKVmo=
 github.com/antoniszymanski/invidious-go v0.1.6 h1:dE8XlksmwonnCEyQQsIq5kjGO0Vj6naFklcbvz/InPY=
 github.com/antoniszymanski/invidious-go v0.1.6/go.mod h1:CjSdn6xiBKagt+/YHWWVpkeoyhtE/Yqqnp7lMjc3DLg=
 github.com/antoniszymanski/option-go v0.3.0 h1:91lBprOGgTJ2xZGCEPbFC5VqzsHjY3GyYhwr9vCFbyA=
@@ -43,8 +43,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dlclark/regexp2 v1.11.4 h1:rPYF9/LECdNymJufQKmri9gV604RvvABwgOA8un7yAo=
 github.com/dlclark/regexp2 v1.11.4/go.mod h1:DHkYz0B9wPfa6wondMfaivmHpzrQ3v9q8cnmRbL6yW8=
-github.com/dop251/goja v0.0.0-20260106131823-651366fbe6e3 h1:bVp3yUzvSAJzu9GqID+Z96P+eu5TKnIMJSV4QaZMauM=
-github.com/dop251/goja v0.0.0-20260106131823-651366fbe6e3/go.mod h1:MxLav0peU43GgvwVgNbLAj1s/bSGboKkhuULvq/7hx4=
+github.com/dop251/goja v0.0.0-20260216154549-8b74ce4618c5 h1:QckvTXtu55YMopmVeDrPQ/r+T6xjw8KMCmE3UgUldkw=
+github.com/dop251/goja v0.0.0-20260216154549-8b74ce4618c5/go.mod h1:MxLav0peU43GgvwVgNbLAj1s/bSGboKkhuULvq/7hx4=
 github.com/dop251/goja_nodejs v0.0.0-20260212111938-1f56ff5bcf14 h1:3U8dTgyNBhEQ/GVw0jZW5q+93Zw2gAZPRWhJ9TwV3rM=
 github.com/dop251/goja_nodejs v0.0.0-20260212111938-1f56ff5bcf14/go.mod h1:Tb7Xxye4LX7cT3i8YLvmPMGCV92IOi4CDZvm/V8ylc0=
 github.com/dsnet/try v0.0.3 h1:ptR59SsrcFUYbT/FhAbKTV6iLkeD6O18qfIWRml2fqI=

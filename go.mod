@@ -6,7 +6,7 @@ tool github.com/sqlc-dev/sqlc/cmd/sqlc
 
 require (
 	github.com/alexflint/go-arg v1.6.1
-	github.com/antoniszymanski/innertube-go v0.4.1
+	github.com/antoniszymanski/innertube-go v0.4.3
 	github.com/antoniszymanski/invidious-go v0.1.6
 	github.com/antoniszymanski/stacktrace-go v0.3.5
 	github.com/avast/retry-go/v5 v5.0.0
@@ -37,7 +37,7 @@ require (
 	github.com/cubicdaiya/gonp v1.0.4 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dlclark/regexp2 v1.11.4 // indirect
-	github.com/dop251/goja v0.0.0-20260106131823-651366fbe6e3 // indirect
+	github.com/dop251/goja v0.0.0-20260216154549-8b74ce4618c5 // indirect
 	github.com/dop251/goja_nodejs v0.0.0-20260212111938-1f56ff5bcf14 // indirect
 	github.com/dsnet/try v0.0.3 // indirect
 	github.com/fatih/structtag v1.2.0 // indirect
