@@ -4,9 +4,9 @@
 package common
 
 import (
+	"bufio"
 	"io"
 	"os"
-	"unsafe"
 
 	"golang.org/x/term"
 )
@@ -19,15 +19,16 @@ func AwaitEnter() error {
 		}
 	}()
 
-	oldState, err := term.MakeRaw(int(os.Stdin.Fd()))
+	fd := int(os.Stdin.Fd()) //nolint:gosec // G115
+	oldState, err := term.MakeRaw(fd)
 	if err != nil {
 		return err
 	}
-	defer term.Restore(int(os.Stdin.Fd()), oldState) //nolint:errcheck
+	defer term.Restore(fd, oldState) //nolint:errcheck
 
-	var b byte
+	r := bufio.NewReader(os.Stdin)
 	for {
-		_, err = os.Stdin.Read(unsafe.Slice(&b, 1))
+		b, err := r.ReadByte()
 		if err == io.EOF {
 			return nil
 		} else if err != nil {
