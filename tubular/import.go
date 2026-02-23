@@ -12,7 +12,6 @@ import (
 	"github.com/antoniszymanski/innertube-go/youtube"
 	"github.com/antoniszymanski/ytmigrator-go/common"
 	"github.com/antoniszymanski/ytmigrator-go/tubular/internal"
-	"github.com/avast/retry-go/v5"
 )
 
 func (m *Migrator) ImportTo(data common.UserData) error {
@@ -33,7 +32,7 @@ func (m Migrator) importSubscriptions(subscriptions common.Subscriptions) error 
 			continue
 		}
 
-		channel, err := common.Innertube().GetChannel(channel.ID)
+		channel, err := common.GetChannel(channel.ID)
 		if err != nil {
 			return err
 		}
@@ -69,16 +68,7 @@ func (m *Migrator) importPlaylist(title common.PlaylistTitle, videoIDs []common.
 		id, err := m.queries.Stream(context.Background(), url)
 		switch {
 		case errors.Is(err, sql.ErrNoRows):
-			v, err := retry.NewWithData[youtube.VideoResult](
-				retry.LastErrorOnly(true),
-				retry.Attempts(3),
-				retry.RetryIf(func(err error) bool {
-					_, ok := err.(youtube.ErrVideoNotFound)
-					return !ok
-				}),
-			).Do(func() (youtube.VideoResult, error) {
-				return common.Innertube().GetVideo(videoID)
-			})
+			v, err := common.GetVideo(videoID)
 			if _, ok := err.(youtube.ErrVideoNotFound); ok {
 				common.Logger.Warn().Str("videoID", videoID).Msg("video not found")
 				continue
