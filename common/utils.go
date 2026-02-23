@@ -6,7 +6,6 @@ package common
 import (
 	"crypto/sha256"
 	"encoding/hex"
-	"errors"
 	"unsafe"
 )
 
@@ -22,12 +21,6 @@ func Require[S ~[]E, E any](s S, capacity int) S {
 		return s[:0]
 	}
 	return make(S, 0, capacity)
-}
-
-func ErrorAs[T error](err error) (T, bool) {
-	var target T
-	ok := errors.As(err, &target)
-	return target, ok
 }
 
 func Sha256(s string) string {

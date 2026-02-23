@@ -42,7 +42,7 @@ func (m *Migrator) importSubscriptions(input common.Subscriptions) error {
 	}
 
 	subscriptions, err := m.client.Subscriptions()
-	if e, ok := common.ErrorAs[invidious.Error](err); ok &&
+	if e, ok := errors.AsType[invidious.Error](err); ok &&
 		e.StatusCode == 403 && e.Message == "Endpoint disabled" {
 		url := m.client.InstanceURL + "/subscription_manager"
 		fmt.Printf(msg, url)
