@@ -33,6 +33,7 @@ linters:
     - noctx
     - noinlineerr
     - nonamedreturns
+    - paralleltest
     - prealloc
     - predeclared
     - recvcheck
