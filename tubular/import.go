@@ -69,7 +69,7 @@ func (m *Migrator) importPlaylist(title common.PlaylistTitle, videoIDs []common.
 		switch {
 		case errors.Is(err, sql.ErrNoRows):
 			v, err := common.GetVideo(videoID)
-			if _, ok := err.(youtube.ErrVideoNotFound); ok {
+			if err == youtube.ErrVideoNotFound {
 				common.Logger.Warn().Str("videoID", videoID).Msg("video not found")
 				continue
 			}

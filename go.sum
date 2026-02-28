@@ -19,12 +19,12 @@ github.com/antlr4-go/antlr/v4 v4.13.1 h1:SqQKkuVZ+zWkMMNkjy5FZe5mr5WURWnlpmOuzYW
 github.com/antlr4-go/antlr/v4 v4.13.1/go.mod h1:GKmUxMtwp6ZgGwZSva4eWPC5mS6vUAmOABFgjdkM7Nw=
 github.com/antoniszymanski/gopc-go v0.2.0 h1:kG7eDa0uUX8Lo3zjP4jZqiSEOtMxLMRU82BpQRSWaT0=
 github.com/antoniszymanski/gopc-go v0.2.0/go.mod h1:X2lf835vVx6vlJ+53yvpi0kqfqKz7tPTmVkHf3IwnY4=
-github.com/antoniszymanski/innertube-go v0.4.3 h1:+rVicC0FCx1nF8iCdTALhz92B1oewY1bACTMeLTO48A=
-github.com/antoniszymanski/innertube-go v0.4.3/go.mod h1:kSrLalEreTR3A+c2Zts/eqPx9eujGeI+JoJpd9tKVmo=
+github.com/antoniszymanski/innertube-go v0.4.4 h1:Trh95/0ewXK5kmFPkJNIvvNfJBGjJ+o5xoJEcfiAW+M=
+github.com/antoniszymanski/innertube-go v0.4.4/go.mod h1:qRJs8LLV77a2QGhD7FU0pPSt3LS8RR+Qf5wczrAvH0I=
 github.com/antoniszymanski/invidious-go v0.1.7 h1:roWcELtzFx44tBcqGc7r0G5/S7h3je8R52xMAY0Bpb0=
 github.com/antoniszymanski/invidious-go v0.1.7/go.mod h1:2r8wfYdDe8h5CaQhXTd1qEtRsqgoyB1kq9kSc4YcOpY=
-github.com/antoniszymanski/option-go v0.3.0 h1:91lBprOGgTJ2xZGCEPbFC5VqzsHjY3GyYhwr9vCFbyA=
-github.com/antoniszymanski/option-go v0.3.0/go.mod h1:7SFqQQpRK81BMwToya76vPllbU//Caj4IpVcdTWlx08=
+github.com/antoniszymanski/option-go v0.4.0 h1:fTgRx8EEsAkZNaj4vwHxlo37uVPBPhq/Y/GKmZbPBBo=
+github.com/antoniszymanski/option-go v0.4.0/go.mod h1:7SFqQQpRK81BMwToya76vPllbU//Caj4IpVcdTWlx08=
 github.com/antoniszymanski/stacktrace-go v0.3.6 h1:EUXz9fb8DZ4KO1BByLuSJgkxPJecQg4wLPImPWbAVzk=
 github.com/antoniszymanski/stacktrace-go v0.3.6/go.mod h1:OnYKXdTJUT3ArSAsNuTV4iRnqDUYaq+GJIIIRjLERuc=
 github.com/avast/retry-go/v5 v5.0.0 h1:kf1Qc2UsTZ4qq8elDymqfbISvkyMuhgRxuJqX2NHP7k=
@@ -43,8 +43,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dlclark/regexp2 v1.11.4 h1:rPYF9/LECdNymJufQKmri9gV604RvvABwgOA8un7yAo=
 github.com/dlclark/regexp2 v1.11.4/go.mod h1:DHkYz0B9wPfa6wondMfaivmHpzrQ3v9q8cnmRbL6yW8=
-github.com/dop251/goja v0.0.0-20260216154549-8b74ce4618c5 h1:QckvTXtu55YMopmVeDrPQ/r+T6xjw8KMCmE3UgUldkw=
-github.com/dop251/goja v0.0.0-20260216154549-8b74ce4618c5/go.mod h1:MxLav0peU43GgvwVgNbLAj1s/bSGboKkhuULvq/7hx4=
+github.com/dop251/goja v0.0.0-20260226184354-913bd86fb70c h1:hIlkLbQ+tYoUqlG42LnxwGcohL5jaGqD8mGeJWavm8A=
+github.com/dop251/goja v0.0.0-20260226184354-913bd86fb70c/go.mod h1:MxLav0peU43GgvwVgNbLAj1s/bSGboKkhuULvq/7hx4=
 github.com/dop251/goja_nodejs v0.0.0-20260212111938-1f56ff5bcf14 h1:3U8dTgyNBhEQ/GVw0jZW5q+93Zw2gAZPRWhJ9TwV3rM=
 github.com/dop251/goja_nodejs v0.0.0-20260212111938-1f56ff5bcf14/go.mod h1:Tb7Xxye4LX7cT3i8YLvmPMGCV92IOi4CDZvm/V8ylc0=
 github.com/dsnet/try v0.0.3 h1:ptR59SsrcFUYbT/FhAbKTV6iLkeD6O18qfIWRml2fqI=

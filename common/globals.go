@@ -23,8 +23,7 @@ var getVideoRetrier = retry.NewWithData[youtube.VideoResult](
 	retry.LastErrorOnly(true),
 	retry.Attempts(3),
 	retry.RetryIf(func(err error) bool {
-		_, ok := err.(youtube.ErrVideoNotFound)
-		return !ok
+		return err != youtube.ErrVideoNotFound
 	}),
 )
 
@@ -38,8 +37,7 @@ var getChannelRetrier = retry.NewWithData[*youtube.Channel](
 	retry.LastErrorOnly(true),
 	retry.Attempts(3),
 	retry.RetryIf(func(err error) bool {
-		_, ok := err.(youtube.ErrChannelNotFound)
-		return !ok
+		return err != youtube.ErrChannelNotFound
 	}),
 )
 
