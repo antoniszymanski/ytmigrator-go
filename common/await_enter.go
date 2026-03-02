@@ -19,7 +19,7 @@ func AwaitEnter() error {
 		}
 	}()
 
-	fd := int(os.Stdin.Fd()) //nolint:gosec // G115
+	fd := int(os.Stdin.Fd()) //#nosec G115
 	oldState, err := term.MakeRaw(fd)
 	if err != nil {
 		return err
