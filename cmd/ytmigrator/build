@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+set -euo pipefail
+
+go build -ldflags="-s -w" -trimpath -tags goexperiment.jsonv2
