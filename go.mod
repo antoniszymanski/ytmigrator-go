@@ -6,7 +6,7 @@ tool github.com/sqlc-dev/sqlc/cmd/sqlc
 
 require (
 	github.com/alexflint/go-arg v1.6.1
-	github.com/antoniszymanski/innertube-go v0.4.5
+	github.com/antoniszymanski/innertube-go v0.4.6
 	github.com/antoniszymanski/invidious-go v0.1.7
 	github.com/antoniszymanski/stacktrace-go v0.3.6
 	github.com/avast/retry-go/v5 v5.0.0

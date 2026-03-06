@@ -17,8 +17,8 @@ github.com/antlr4-go/antlr/v4 v4.13.1 h1:SqQKkuVZ+zWkMMNkjy5FZe5mr5WURWnlpmOuzYW
 github.com/antlr4-go/antlr/v4 v4.13.1/go.mod h1:GKmUxMtwp6ZgGwZSva4eWPC5mS6vUAmOABFgjdkM7Nw=
 github.com/antoniszymanski/gopc-go v0.2.0 h1:kG7eDa0uUX8Lo3zjP4jZqiSEOtMxLMRU82BpQRSWaT0=
 github.com/antoniszymanski/gopc-go v0.2.0/go.mod h1:X2lf835vVx6vlJ+53yvpi0kqfqKz7tPTmVkHf3IwnY4=
-github.com/antoniszymanski/innertube-go v0.4.5 h1:0TVkg8ZfW/vbV46ovZVnmMrhS40IQnu55RY++U+iaaY=
-github.com/antoniszymanski/innertube-go v0.4.5/go.mod h1:DqnK9JHPCBH5APXThI7fVFqq1KyeZg9YG2s0yGsMDGY=
+github.com/antoniszymanski/innertube-go v0.4.6 h1:5iqKwhN27rAJQP9KffXs5HCmWgWoZ27eC+ryJQu4ngU=
+github.com/antoniszymanski/innertube-go v0.4.6/go.mod h1:DqnK9JHPCBH5APXThI7fVFqq1KyeZg9YG2s0yGsMDGY=
 github.com/antoniszymanski/invidious-go v0.1.7 h1:roWcELtzFx44tBcqGc7r0G5/S7h3je8R52xMAY0Bpb0=
 github.com/antoniszymanski/invidious-go v0.1.7/go.mod h1:2r8wfYdDe8h5CaQhXTd1qEtRsqgoyB1kq9kSc4YcOpY=
 github.com/antoniszymanski/option-go v0.4.0 h1:fTgRx8EEsAkZNaj4vwHxlo37uVPBPhq/Y/GKmZbPBBo=
