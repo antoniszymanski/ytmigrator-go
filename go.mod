@@ -17,7 +17,7 @@ require (
 	github.com/kaorimatz/go-opml v0.0.0-20210201121027-bc8e2852d7f9
 	github.com/mattn/go-sqlite3 v1.14.37
 	github.com/r3labs/diff/v3 v3.0.2
-	github.com/rs/zerolog v1.34.0
+	github.com/rs/zerolog v1.35.0
 	golang.org/x/oauth2 v0.36.0
 	golang.org/x/term v0.41.0
 	google.golang.org/api v0.273.0
