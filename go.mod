@@ -15,7 +15,7 @@ require (
 	github.com/go-json-experiment/json v0.0.0-20260214004413-d219187c3433
 	github.com/google/uuid v1.6.0
 	github.com/kaorimatz/go-opml v0.0.0-20210201121027-bc8e2852d7f9
-	github.com/mattn/go-sqlite3 v1.14.39
+	github.com/mattn/go-sqlite3 v1.14.40
 	github.com/r3labs/diff/v3 v3.0.2
 	github.com/rs/zerolog v1.35.0
 	golang.org/x/oauth2 v0.36.0
