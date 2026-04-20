@@ -1,6 +1,6 @@
 module github.com/antoniszymanski/ytmigrator-go
 
-go 1.26.0
+go 1.26.2
 
 tool github.com/sqlc-dev/sqlc/cmd/sqlc
 
