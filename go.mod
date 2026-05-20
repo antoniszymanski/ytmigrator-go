@@ -12,7 +12,7 @@ require (
 	github.com/avast/retry-go/v5 v5.0.0
 	github.com/cli/browser v1.3.1-0.20260520160747-1418ef7cb673
 	github.com/dustin/go-humanize v1.0.1
-	github.com/go-json-experiment/json v0.0.0-20260505212615-e40f80bf6836
+	github.com/go-json-experiment/json v0.0.0-20260520185125-572e7c383686
 	github.com/google/uuid v1.6.0
 	github.com/kaorimatz/go-opml v0.0.0-20210201121027-bc8e2852d7f9
 	github.com/mattn/go-sqlite3 v1.14.44
