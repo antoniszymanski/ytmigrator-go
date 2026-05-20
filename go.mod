@@ -10,7 +10,7 @@ require (
 	github.com/antoniszymanski/invidious-go v0.1.8
 	github.com/antoniszymanski/stacktrace-go v0.3.6
 	github.com/avast/retry-go/v5 v5.0.0
-	github.com/cli/browser v1.3.1-0.20260520140247-3630abd1742e
+	github.com/cli/browser v1.3.1-0.20260520160747-1418ef7cb673
 	github.com/dustin/go-humanize v1.0.1
 	github.com/go-json-experiment/json v0.0.0-20260505212615-e40f80bf6836
 	github.com/google/uuid v1.6.0
